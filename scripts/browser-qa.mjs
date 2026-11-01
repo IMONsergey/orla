@@ -1,12 +1,19 @@
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
-const require=createRequire(import.meta.url),{chromium}=require('/home/sergey/.local/share/imon-toolkit/node/node_modules/playwright');
-const root='/tmp/realestate-publication/orla',base='http://127.0.0.1:4313';
+const require=createRequire(import.meta.url);
+let playwright;
+if(process.env.PLAYWRIGHT_MODULE)playwright=require(process.env.PLAYWRIGHT_MODULE);
+else{try{playwright=require('playwright');}catch{playwright=require('/home/sergey/.local/share/imon-toolkit/node/node_modules/playwright');}}
+const {chromium}=playwright,root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const externalBase=process.env.BROWSER_QA_BASE_URL||process.env.MOTION_QA_BASE_URL;
+const port=process.env.BROWSER_QA_PORT||'4313',base=externalBase||'http://127.0.0.1:'+port;
 await mkdir(root+'/artifacts',{recursive:true});
-const server=spawn(process.execPath,['node_modules/astro/bin/astro.mjs','dev','--host','127.0.0.1','--port','4313'],{cwd:root,stdio:['ignore','pipe','pipe']});
-let logs='',browser;server.stdout.on('data',d=>logs+=d);server.stderr.on('data',d=>logs+=d);
+const server=externalBase?undefined:spawn(process.execPath,['node_modules/astro/bin/astro.mjs','dev','--ignore-lock','--host','127.0.0.1','--port',port],{cwd:root,stdio:['ignore','pipe','pipe']});
+let logs='',browser;server?.stdout.on('data',d=>logs+=d);server?.stderr.on('data',d=>logs+=d);
 const report={viewports:[],interactions:[],errors:[]};
 try{
  let ready=false;for(let i=0;i<80;i++){try{if((await fetch(base)).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,250));}if(!ready)throw new Error(logs);
@@ -30,4 +37,4 @@ try{
  await page.route('**/api/enquiry',route=>{requests.push(route.request().postDataJSON());return route.fulfill({status:201,contentType:'application/json',body:JSON.stringify({ok:true,id:requests.at(-1).submissionId})});});await form.locator('button[type=submit]').click();await page.locator('.enquiry__success').waitFor({state:'visible'});
  assert.equal(requests[0].submissionId,requests[1].submissionId);assert.equal(requests[0].project,'orla');assert.equal(requests[0].context,'Residence 403');report.interactions.push('validation, retained data, idempotent retry and truthful success');
  assert.deepEqual(report.errors,[]);await writeFile(root+'/artifacts/browser-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify({passed:true,...report}));
-}finally{if(browser)await browser.close();server.kill('SIGTERM');await writeFile(root+'/artifacts/dev-server.log',logs);}
+}finally{if(browser)await browser.close();server?.kill('SIGTERM');await writeFile(root+'/artifacts/dev-server.log',logs);}

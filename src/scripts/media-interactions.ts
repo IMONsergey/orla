@@ -33,6 +33,7 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
   const slides = $$<HTMLElement>('.interiors__slide', gallery);
   const count = $('[data-gallery-current]', gallery);
   let requestedGallery = 0, displayedGallery = 0, galleryRequest = 0;
+  let galleryTween:gsap.core.Tween|undefined;
   let swipe: {id: number; x: number; y: number} | null = null;
   let suppressClickUntil = 0;
   gallery.style.touchAction = 'pan-y';
@@ -46,6 +47,9 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
     image.decoding = 'async';
   });
   function settleGallery(index: number) {
+    // A target-array kill can miss a single-target fromTo before it initializes.
+    // Finish and kill that exact tween so its start-state cannot render later.
+    galleryTween?.progress(1,true).kill();galleryTween=undefined;
     gsap.killTweensOf(slides);
     slides.forEach((slide, i) => {
       slide.classList.toggle('is-active', i === index);
@@ -53,7 +57,7 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
       slide.inert = i !== index;
       slide.style.opacity = i === index ? '1' : '0';
       slide.style.removeProperty('z-index');
-      gsap.set(slide,{xPercent:0});
+      gsap.set(slide,{xPercent:0,lazy:false});
     });
   }
   async function showGallery(index: number, direction=1) {
@@ -82,7 +86,7 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
     count.textContent = String(next + 1);
     if (reduced.matches) { settleGallery(next); return; }
     // The authored interior sequence uses a horizontal wipe over an opaque frame.
-    gsap.fromTo(incoming, {opacity:1,xPercent:direction<0?-100:100}, {opacity:1,xPercent:0,duration:.65,ease:'power3.inOut',onComplete:()=>{
+    galleryTween=gsap.fromTo(incoming, {opacity:1,xPercent:direction<0?-100:100}, {opacity:1,xPercent:0,duration:.65,ease:'power3.inOut',lazy:false,onComplete:()=>{
       if (id === galleryRequest) settleGallery(next);
     }});
   }

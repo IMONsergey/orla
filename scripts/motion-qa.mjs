@@ -20,7 +20,9 @@ const port = process.env.MOTION_QA_PORT || '4314';
 const base = externalBase || 'http://127.0.0.1:' + port;
 const focusDiagnostic = process.env.MOTION_QA_FOCUS_ONLY === '1';
 const debugScroll = focusDiagnostic || process.env.MOTION_QA_DEBUG_SCROLL === '1';
-const pointerClick = process.env.MOTION_QA_POINTER_CLICK === '1';
+// A real pointer action must not inherit locator.click() preparation scrolls.
+// The locator path remains an explicit diagnostic, never the default UI check.
+const pointerClick = process.env.MOTION_QA_POINTER_CLICK !== '0';
 const started = Date.now(), deadline = started + 95_000;
 const report = {base, scope:focusDiagnostic?'hero-film-hotspot diagnostic':'full motion regression', debugScroll, hotspotClickMode:pointerClick?'observed mouse coordinate':'locator', passed:false, startedAt:new Date(started).toISOString(), engines:[], errors:[]};
 let server, activeBrowser, serverLog = '', stopped = false, watchdog;
@@ -30,7 +32,7 @@ await mkdir(artifacts, {recursive:true});
 
 async function startServer() {
   if (externalBase) return;
-  server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'dev', '--host', '127.0.0.1', '--port', port], {
+  server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'dev', '--ignore-lock', '--host', '127.0.0.1', '--port', port], {
     cwd:root, stdio:['ignore','pipe','pipe'],
   });
   server.stdout.on('data', data => { serverLog += data; });
@@ -73,19 +75,47 @@ async function read(page, selector) {
   return page.evaluate(selector => [...document.querySelectorAll(selector)].map(node => window.__orlaMotionQA.read(node)), selector);
 }
 async function clickHotspot(page, locator) {
-  if(!pointerClick){await locator.click();return {mode:'locator'};}
+  await locator.evaluate(button=>new Promise((resolve,reject)=>{
+    let previous,steady=0,frame;
+    const timer=setTimeout(()=>{cancelAnimationFrame(frame);reject(new Error('Hotspot geometry did not settle'));},4000);
+    const sample=()=>{
+      const r=button.getBoundingClientRect(),next=[r.x,r.y,r.width,r.height,scrollY];
+      steady=previous&&next.every((n,i)=>Math.abs(n-previous[i])<.15)&&window.__orlaMotionQA.shown(button)?steady+1:0;
+      previous=next;
+      if(steady>=6){clearTimeout(timer);resolve();}else frame=requestAnimationFrame(sample);
+    };sample();
+  }));
   const point=await locator.evaluate(button=>{
     const r=button.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
-    const hit=document.elementFromPoint(x,y);
-    if(r.width<=0||r.height<=0||r.left<0||r.top<0||r.right>innerWidth||r.bottom>innerHeight)
-      throw new Error('Coordinate diagnostic requires a fully visible hotspot');
+    const hit=document.elementFromPoint(x,y),v=visualViewport,left=v?.offsetLeft||0,top=v?.offsetTop||0;
+    if(r.width<=0||r.height<=0||r.left<left||r.top<top||r.right>left+(v?.width||innerWidth)||r.bottom>top+(v?.height||innerHeight))
+      throw new Error('Coordinate click requires a fully visible control');
     if(!hit||!(hit===button||button.contains(hit)))
-      throw new Error('Coordinate diagnostic hotspot is obscured by '+window.__orlaMotionQA.describe(hit));
-    return {mode:'observed mouse coordinate',x,y,hit:window.__orlaMotionQA.describe(hit),
-      target:window.__orlaMotionQA.describe(button),scrollY};
+      throw new Error('Coordinate click is obscured by '+window.__orlaMotionQA.describe(hit));
+    return {x,y,hit:window.__orlaMotionQA.describe(hit),target:window.__orlaMotionQA.describe(button),scrollY,time:performance.now()};
   });
-  await page.mouse.click(point.x,point.y);
-  return point;
+  if(pointerClick)await page.mouse.click(point.x,point.y);else await locator.click();
+  return {...point,mode:pointerClick?'observed mouse coordinate':'locator'};
+}
+async function hotspotScroll(page,before,label){
+  const observed=await page.evaluate(before=>{
+    const samples=window.__orlaMotionQA.hotspotProbes.at(-1).frames.filter(f=>f.time>=before.time);
+    return {initial:before.scrollY,final:scrollY,samples:samples.map(f=>({time:f.time,scrollY:f.scrollY}))};
+  },before);
+  assert.ok(observed.samples.length>1,'No scroll samples for '+label);
+  assert.ok(Math.abs(observed.final-observed.initial)<=1&&observed.samples.every(f=>Math.abs(f.scrollY-observed.initial)<=1),label+' changed scroll: '+JSON.stringify(observed));
+  return observed;
+}
+async function hotspotBounds(page){
+  return page.locator('#hero-hotspot').evaluate(n=>{
+    const close=n.querySelector('[data-hotspot-close]'),r=close.getBoundingClientRect(),hit=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2),v=visualViewport;
+    return {bounds:window.__orlaMotionQA.read(n).bounds,close:window.__orlaMotionQA.read(close).bounds,
+      closeAccessible:hit===close||close.contains(hit),left:v?.offsetLeft||0,top:v?.offsetTop||0,w:v?.width||innerWidth,h:v?.height||innerHeight};
+  });
+}
+function verifyHotspotBounds(card,label){
+  for(const box of [card.bounds,card.close])assert.ok(box.x>=card.left-1&&box.y>=card.top-1&&box.right<=card.left+card.w+1&&box.bottom<=card.top+card.h+1,label+': '+JSON.stringify(card));
+  assert.equal(card.closeAccessible,true,'Hotspot close is obscured: '+JSON.stringify(card));
 }
 async function noOverflow(page, label) {
   const dimensions = await page.evaluate(() => ({
@@ -408,12 +438,16 @@ async function runEngine(engine) {
         await page.evaluate(index=>window.__orlaMotionQA.mark('after hotspot click',index),i);
         await wait(page,()=>{const card=document.querySelector('#hero-hotspot');return !card.hidden&&card.getAnimations().every(a=>a.playState!=='running');});
         await page.evaluate(index=>window.__orlaMotionQA.mark('hotspot animation settled',index),i);
-        const card=await page.locator('#hero-hotspot').evaluate(n=>({bounds:window.__orlaMotionQA.read(n).bounds,w:innerWidth,h:innerHeight}));
-        assert.ok(card.bounds.x>=-1&&card.bounds.y>=-1&&card.bounds.right<=card.w+1&&card.bounds.bottom<=card.h+1,'Hotspot card escapes viewport: '+JSON.stringify(card));
-        if(i%2)await page.keyboard.press('Escape');else await page.locator('[data-hotspot-close]').click();
+        const card=await hotspotBounds(page);verifyHotspotBounds(card,'Hotspot card escapes viewport');
+        const openingScroll=await hotspotScroll(page,click,'Hotspot opening');
+        assert.deepEqual(await hotspots.evaluateAll((nodes,index)=>nodes.map((n,i)=>n.getAttribute('aria-expanded')===String(i===index)),i),Array(await hotspots.count()).fill(true),'Only the active hotspot should be expanded');
+        const closeStart=await page.evaluate(index=>{window.__orlaMotionQA.startHotspot(index);return {time:performance.now(),scrollY};},i);
+        if(i%2)await page.keyboard.press('Escape');else await clickHotspot(page,page.locator('[data-hotspot-close]'));
         await wait(page,()=>document.querySelector('#hero-hotspot').hidden);
+        await frames(page,6);
         assert.equal(await trigger.evaluate(n=>n===document.activeElement),true,'Hotspot focus was not restored');
-        observed.push({...card,click});
+        assert.equal(await hotspots.evaluateAll(nodes=>nodes.every(n=>n.getAttribute('aria-expanded')==='false')),true);
+        observed.push({...card,click,openingScroll,closingScroll:await hotspotScroll(page,closeStart,'Hotspot closing')});
       }
       return {target,before,after,hotspots:observed};
     });
@@ -469,6 +503,7 @@ async function runEngine(engine) {
     });
 
     await step('residence dialog and focus',async()=>{
+      await scrollTo(page,'[data-category]');await visible(page,'.category-list>[data-category]:first-child');
       const trigger=page.locator('[data-category]').first();await trigger.click();
       await wait(page,()=>document.querySelector('#residence-dialog').open);
       await page.locator('[data-collection-panel] [data-show-residence]').click();
@@ -506,19 +541,37 @@ async function runEngine(engine) {
       await page.setViewportSize({width:844,height:390});await frames(page,6);
       const trigger=page.locator('[data-hotspot]').first();
       await trigger.evaluate(n=>{const r=n.getBoundingClientRect();scrollTo({top:Math.max(0,scrollY+r.top-innerHeight*.45),behavior:'instant'});});
+      await page.evaluate(()=>window.__orlaMotionQA.startHotspot(0));
       const click=await clickHotspot(page,trigger);
       await wait(page,()=>{const n=document.querySelector('#hero-hotspot');return !n.hidden&&n.getAnimations().every(a=>a.playState!=='running');});
-      const observed=await page.locator('#hero-hotspot').evaluate(n=>({bounds:window.__orlaMotionQA.read(n).bounds,viewport:{width:innerWidth,height:innerHeight},close:window.__orlaMotionQA.read(n.querySelector('[data-hotspot-close]')).bounds}));
-      for(const box of [observed.bounds,observed.close])assert.ok(box.x>=-1&&box.y>=-1&&box.right<=observed.viewport.width+1&&box.bottom<=observed.viewport.height+1,'Short viewport bounds: '+JSON.stringify(observed));
+      const observed=await hotspotBounds(page);verifyHotspotBounds(observed,'Short viewport bounds');
+      const openingScroll=await hotspotScroll(page,click,'Short landscape opening');
       await page.keyboard.press('Escape');await wait(page,()=>document.querySelector('#hero-hotspot').hidden);
       assert.equal(await trigger.evaluate(n=>n===document.activeElement),true);
-      return {...observed,click,overflow:await noOverflow(page,'short landscape')};
+      return {...observed,click,openingScroll,overflow:await noOverflow(page,'short landscape')};
     });
     assert.deepEqual(result.pageErrors,[]);assert.deepEqual(result.unexpectedSubmissions,[]);
     result.passed=true;
   } catch(error) {
     result.error={step:currentStep,message:error.message,stack:error.stack};
     if(page&&!page.isClosed()){
+      try {result.galleryAtFailure=await page.evaluate(()=>({
+        counter:document.querySelector('[data-gallery-current]')?.textContent,busy:document.querySelector('#interior')?.getAttribute('aria-busy'),
+        slides:[...document.querySelectorAll('#interior .interiors__slide')].map(n=>({...window.__orlaMotionQA.read(n),
+          active:n.classList.contains('is-active'),inert:n.inert,ariaHidden:n.getAttribute('aria-hidden'),style:n.getAttribute('style'),decoded:n.querySelector('img').naturalWidth})),
+      }));}catch{}
+      try {result.heroTitleAtFailure=await read(page,'.hero__title-wrap,.hero__title-wrap>h1,.hero__title-wrap>.watch');}catch{}
+      try {result.heroMotionAtFailure=await page.evaluate(async()=>{
+        const response=await fetch('/src/scripts/main.ts');if(!response.ok)return null;
+        const source=await response.text(),imports=[...source.matchAll(/from\s+["']([^"']+)["']/g)].map(m=>m[1]);
+        const path=imports.find(p=>p.includes('gsap_ScrollTrigger'));if(!path)return null;
+        const {ScrollTrigger}=await import(path),title=document.querySelector('.hero__title-wrap');
+        return ScrollTrigger.getAll().filter(t=>t.animation?.targets().includes(title)).map(t=>({
+          start:t.start,end:t.end,progress:t.progress,scroll:t.scroll(),enabled:t.enabled,
+          animation:{progress:t.animation.progress(),time:t.animation.time(),duration:t.animation.duration(),active:t.animation.isActive()},
+          scrub:t.getTween()?{progress:t.getTween().progress(),time:t.getTween().time(),duration:t.getTween().duration(),active:t.getTween().isActive()}:null,
+        }));
+      });}catch{}
       try {result.scrollFocusEvidence=await page.evaluate(()=>{
         const qa=window.__orlaMotionQA;
         if(!qa)return null;
@@ -545,7 +598,7 @@ try {
   });
   await Promise.race([(async()=>{
     await startServer();
-    for(const engine of ['chromium','webkit']){
+    for(const engine of (process.env.MOTION_QA_ENGINE?[process.env.MOTION_QA_ENGINE]:['chromium','webkit'])){
       if(stopped)break;
       try {await runEngine(engine);}
       catch(error){report.errors.push({engine,message:error.message,stack:error.stack});}

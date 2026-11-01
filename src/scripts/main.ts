@@ -200,25 +200,73 @@ form.addEventListener('input', event => {
   if (input.name) { input.removeAttribute('aria-invalid'); const error = form.querySelector(`[data-error="${input.name}"]`); if (error) error.textContent = ''; }
 });
 
-// The architectural callout opens beside the clicked point and remains in view.
+// Keep the architectural callout beside its point without scrolling the page.
 const heroDetail=$('#hero-hotspot');
 let heroDetailTrigger:HTMLElement|undefined,heroDetailAnimation:Animation|undefined;
+let heroDetailFrame=0,heroDetailLayoutDirty=true;
+let heroDetailLayout={left:0,width:0,height:0};
 function closeHeroDetail(restoreFocus=false){
-  heroDetailAnimation?.cancel();heroDetail.hidden=true;
+  const trigger=heroDetailTrigger;
+  cancelAnimationFrame(heroDetailFrame);heroDetailFrame=0;
+  heroDetailAnimation?.cancel();heroDetailAnimation=undefined;
+  heroDetail.hidden=true;heroDetailTrigger=undefined;
   $$('[data-hotspot]').forEach(button=>button.setAttribute('aria-expanded','false'));
-  if(restoreFocus)heroDetailTrigger?.focus({preventScroll:true});
+  if(restoreFocus)trigger?.focus({preventScroll:true});
+}
+function positionHeroDetail(){
+  heroDetailFrame=0;
+  if(heroDetail.hidden||!heroDetailTrigger)return;
+  const viewport=window.visualViewport;
+  const view={left:viewport?.offsetLeft||0,top:viewport?.offsetTop||0,width:viewport?.width||innerWidth,height:viewport?.height||innerHeight};
+  const point=heroDetailTrigger.getBoundingClientRect(),hero=$('.hero').getBoundingClientRect();
+  const header=$('.site-header').getBoundingClientRect();
+  const visibleTop=Math.max(view.top,Math.min(header.bottom,view.top+view.height));
+  // A callout belongs to a visible point; scrolling away dismisses it without
+  // sending focus back to an offscreen control or fighting the user's scroll.
+  if(point.bottom<=visibleTop||point.top>=view.top+view.height||point.right<=view.left||point.left>=view.left+view.width||hero.bottom<=visibleTop||hero.top>=view.top+view.height){
+    closeHeroDetail();return;
+  }
+  if(heroDetailLayoutDirty){
+    heroDetailLayoutDirty=false;
+    for(const property of ['left','width','height','min-width','min-height'])heroDetail.style.removeProperty(property);
+    const authored=heroDetail.getBoundingClientRect();
+    // The circular close control extends 27px past the card's left edge.
+    // Measure the authored min/max sizes before applying the viewport limits.
+    heroDetail.style.minWidth='0';heroDetail.style.minHeight='0';
+    heroDetail.style.width=`${Math.max(1,Math.min(authored.width,view.width-32-27))}px`;
+    heroDetail.style.height=`${Math.max(1,Math.min(authored.height,view.height-32))}px`;
+    const box=heroDetail.getBoundingClientRect();
+    heroDetailLayout={left:box.left,width:heroDetail.offsetWidth,height:heroDetail.offsetHeight};
+  }
+  const {left,width,height}=heroDetailLayout;
+  const minTop=view.top+16,maxTop=view.top+view.height-height-16;
+  const preferredTop=Math.max(point.top+20,header.bottom+16);
+  heroDetail.style.top=`${Math.max(minTop,Math.min(preferredTop,maxTop))}px`;
+  heroDetail.style.left=`${Math.max(view.left+16+27,Math.min(left,view.left+view.width-width-16))}px`;
+}
+function scheduleHeroDetail(layoutChanged=false){
+  heroDetailLayoutDirty=heroDetailLayoutDirty||layoutChanged;
+  if(!heroDetail.hidden&&!heroDetailFrame)heroDetailFrame=requestAnimationFrame(positionHeroDetail);
 }
 function toggleHeroDetail(trigger:HTMLElement){
-  if(!heroDetail.hidden){closeHeroDetail(true);return;}
+  if(!heroDetail.hidden&&heroDetailTrigger===trigger){closeHeroDetail(true);return;}
+  const opening=heroDetail.hidden;
+  heroDetailAnimation?.cancel();heroDetailAnimation=undefined;
   heroDetailTrigger=trigger;heroDetail.hidden=false;
-  const hero=$('.hero'),bounds=hero.getBoundingClientRect(),point=trigger.getBoundingClientRect();
-  const topInset=Math.min(110,Math.max(16,innerHeight-heroDetail.offsetHeight-16));
-  const top=Math.max(topInset,Math.min(point.top+20,innerHeight-heroDetail.offsetHeight-16));
-  heroDetail.style.top=`${Math.min(hero.offsetHeight-heroDetail.offsetHeight-24,Math.max(40,top-bounds.top))}px`;
-  $$('[data-hotspot]').forEach(button=>button.setAttribute('aria-expanded','true'));
-  if(!reducedMotion.matches)heroDetailAnimation=heroDetail.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',transform:'translateY(12px)'},{opacity:1,clipPath:'inset(0 0 0 0)',transform:'translateY(0)'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'});
+  heroDetailLayoutDirty=true;positionHeroDetail();
+  if(heroDetail.hidden)return;
+  $$('[data-hotspot]').forEach(button=>button.setAttribute('aria-expanded',String(button===trigger)));
+  if(opening&&!reducedMotion.matches)heroDetailAnimation=heroDetail.animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'});
   $('[data-hotspot-close]',heroDetail).focus({preventScroll:true});
 }
+window.addEventListener('scroll',()=>scheduleHeroDetail(),{passive:true});
+window.addEventListener('resize',()=>scheduleHeroDetail(true),{passive:true});
+window.visualViewport?.addEventListener('scroll',()=>scheduleHeroDetail(),{passive:true});
+window.visualViewport?.addEventListener('resize',()=>scheduleHeroDetail(true),{passive:true});
+reducedMotion.addEventListener('change',()=>{
+  if(reducedMotion.matches){heroDetailAnimation?.cancel();heroDetailAnimation=undefined;}
+  scheduleHeroDetail(true);
+});
 
 // The film is fetched only after a deliberate open. Closing it stops playback.
 const presentationVideo=$<HTMLVideoElement>('#orla-film');
@@ -322,8 +370,9 @@ motion.add('(min-width:1101px) and (min-height:650px) and (pointer:fine) and (pr
   // The natural page scroll supplies the building rise shown in the original case.
   gsap.fromTo('.hero__architecture,.hero__water,.hero>.hotspot',
     {y:()=>Math.min(innerHeight*.1,100)},
-    {y:-100,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.55,invalidateOnRefresh:true}});
-  gsap.to('.hero__title-wrap',{y:-70,autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'top -8%',end:'top -70%',scrub:.35}});
+    {y:-100,ease:'none',onUpdate:()=>scheduleHeroDetail(),scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.55,invalidateOnRefresh:true}});
+  // Re-entering desktop motion must resync the tween with the refreshed scroll.
+  gsap.fromTo('.hero__title-wrap',{y:0,autoAlpha:1},{y:-70,autoAlpha:0,ease:'none',lazy:false,scrollTrigger:{trigger:'.hero',start:'top -8%',end:'top -70%',scrub:.35,invalidateOnRefresh:true}});
   $$('.hotspot').forEach(point=>gsap.fromTo(point,{autoAlpha:0},{autoAlpha:1,duration:.45,ease:'power2.out',scrollTrigger:{trigger:point,start:'top 84%',once:true}}));
   gsap.fromTo('.lifestyle__back>img',{scale:1.07,yPercent:3},{scale:1.07,yPercent:-3,ease:'none',scrollTrigger:{trigger:'.lifestyle',start:'top bottom',end:'bottom top',scrub:.65}});
   gsap.fromTo('.nature__leaf',{rotation:-1.2,yPercent:0},{rotation:1.2,yPercent:-2,ease:'none',scrollTrigger:{trigger:'.nature',start:'top bottom',end:'bottom top',scrub:.8}});

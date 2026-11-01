@@ -22,4 +22,8 @@
 @media(hover:none){.orla-page .feature-card__plus{opacity:1}.orla-page .feature-card:hover>img{filter:none}}
 @media(prefers-reduced-motion:reduce){.orla-page .hotspot>img{transition:none}}
 
+/* The callout escapes the cropped hero and stays inside the visual viewport. */
+.orla-page .hero-card{position:fixed;z-index:80;transition-property:none}
+.orla-page .hero-card>div{max-height:calc(100% - 38px);overflow:auto;scrollbar-width:thin}
+
 @media(max-height:600px){.orla-page .hero-card{min-height:0;height:calc(100dvh - 32px);max-height:362px;z-index:80}.orla-page .hero-card>div{max-height:calc(100% - 38px);overflow:auto;bottom:18px;scrollbar-width:thin}}
