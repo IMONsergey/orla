@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { responsiveImage } from '../data/responsive-images';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset' | 'sizes'> {
+  src: string;
+  /** Width of the whole image canvas, including intentional CSS crop/cover. */
+  sizes: string;
+}
+const { src, sizes, width, height, decoding = 'async', ...attributes } = Astro.props;
+// A JS src swap must not leave the browser displaying an old srcset candidate.
+const dynamic = [
+  'data-zoom-image', 'data-feature-image', 'data-gallery-image',
+  'data-gallery-preview', 'data-media-image', 'data-interior-preview',
+].some(name => Object.hasOwn(attributes, name));
+const responsive = dynamic ? { src } : responsiveImage(src);
+---
+<img
+  {...attributes}
+  src={responsive.src}
+  srcset={responsive.srcset}
+ sizes={responsive.srcset ? sizes : undefined}
+  width={width ?? responsive.width}
+  height={height ?? responsive.height}
+  decoding={decoding}
+/>

@@ -1,4 +1,6 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { imageSizes } from '../data/image-sizes';
 import { asset } from '../data/assets';
 ---
 <dialog id="enquiry-dialog" class="sheet enquiry" aria-labelledby="enquiry-title">
@@ -8,7 +10,7 @@ import { asset } from '../data/assets';
       <p class="eyebrow">ORLA, Dorchester Collection</p>
       <h3 data-interest>Explore ORLA</h3>
       <p>Palm Jumeirah, Dubai</p>
-      <img class="enquiry__photo" src={asset('1:87','imgImg2')} alt="Curving ORLA terraces and palms" width="990" height="645" loading="lazy" />
+      <ResponsiveImage class="enquiry__photo" src={asset('1:87','imgImg2')} alt="Curving ORLA terraces and palms" width="990" height="645" loading="lazy" sizes={imageSizes.enquiry} />
       <p>Tell us how to reach you. We will help you explore your residence.</p>
       <button type="button" class="back-link" data-close><span aria-hidden="true">←</span> Back to ORLA</button>
     </aside>

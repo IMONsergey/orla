@@ -1,0 +1,1146 @@
+{
+  "/assets/1-100-img4.webp": {
+    "bytes": 422300,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1224,
+    "kind": "photo",
+    "sourceHash": "79af43954208c95dcfe0c94669dfefb3015592007881fa8f5d91188b951195de",
+    "variants": [
+      {
+        "bytes": 44622,
+        "height": 272,
+        "src": "/assets/responsive/f28e924d4a4cfe45a442-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 90966,
+        "height": 408,
+        "src": "/assets/responsive/f28e924d4a4cfe45a442-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 170014,
+        "height": 612,
+        "src": "/assets/responsive/f28e924d4a4cfe45a442-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 246556,
+        "height": 816,
+        "src": "/assets/responsive/f28e924d4a4cfe45a442-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-100-img5.webp": {
+    "bytes": 93632,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 436,
+    "kind": "photo",
+    "sourceHash": "e7a6e0bdd776df4d671fed21f9abcc70bec531c50012b91c042d1b3a8e9fda7c",
+    "variants": [
+      {
+        "bytes": 38066,
+        "height": 272,
+        "src": "/assets/responsive/28fcda619d986d90df0d-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-115-img31.webp": {
+    "bytes": 1022576,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1600,
+    "kind": "photo",
+    "sourceHash": "d16a2970625df5db2469a5d2cf88b14c584ed0e8aeee6c89e4cf4cf0ac68e3a7",
+    "variants": [
+      {
+        "bytes": 69980,
+        "height": 356,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 140306,
+        "height": 533,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 289520,
+        "height": 800,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 474544,
+        "height": 1067,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-115-img34.webp": {
+    "bytes": 312916,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "3c7f83b86f2ec1b9f7d0d1d850abaa73528d9aeb4817e82e0252f7b6bfe50a6e",
+    "variants": [
+      {
+        "bytes": 29374,
+        "height": 360,
+        "src": "/assets/responsive/35d5c85183dedf61e676-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 58372,
+        "height": 540,
+        "src": "/assets/responsive/35d5c85183dedf61e676-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 114210,
+        "height": 810,
+        "src": "/assets/responsive/35d5c85183dedf61e676-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 173522,
+        "height": 1080,
+        "src": "/assets/responsive/35d5c85183dedf61e676-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-115-img35.webp": {
+    "bytes": 108092,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1280,
+    "kind": "photo",
+    "sourceHash": "75bb839deb7dcb7e6b7ae37fc65e3734fa970deae300e741fd1eb02006b46c93",
+    "variants": [
+      {
+        "bytes": 86634,
+        "height": 1138,
+        "src": "/assets/responsive/2292319872e0029d2677-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 720
+  },
+  "/assets/1-115-img36.webp": {
+    "bytes": 212456,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 768,
+    "kind": "photo",
+    "sourceHash": "d6cb6913771c1f66329ec9178b564b789f52ed283e358db7f259ecb91228a955",
+    "variants": [
+      {
+        "bytes": 89088,
+        "height": 480,
+        "src": "/assets/responsive/99d4adf7e6027697c4f0-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-115-img38.webp": {
+    "bytes": 761676,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1666,
+    "kind": "photo",
+    "sourceHash": "4c6230618d7674fc2d86e91a34962e8b3ae2bbff43f8efc39aba7ee294f5af13",
+    "variants": [
+      {
+        "bytes": 85184,
+        "height": 533,
+        "src": "/assets/responsive/ed7f2051a642cdf8af6c-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 185298,
+        "height": 800,
+        "src": "/assets/responsive/ed7f2051a642cdf8af6c-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 397654,
+        "height": 1200,
+        "src": "/assets/responsive/ed7f2051a642cdf8af6c-w1440.webp",
+        "width": 1440
+      }
+    ],
+    "width": 2000
+  },
+  "/assets/1-115-img39.webp": {
+    "bytes": 209894,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1100,
+    "kind": "photo",
+    "sourceHash": "529d30ad3d55ccea1d3d3cdec16e2e3c7eac72983f3f651784a961d87bdd267a",
+    "variants": [
+      {
+        "bytes": 30714,
+        "height": 352,
+        "src": "/assets/responsive/b0bea98e7378a09f606f-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 58310,
+        "height": 528,
+        "src": "/assets/responsive/b0bea98e7378a09f606f-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 112522,
+        "height": 792,
+        "src": "/assets/responsive/b0bea98e7378a09f606f-w1440.webp",
+        "width": 1440
+      }
+    ],
+    "width": 2000
+  },
+  "/assets/1-115-img40.webp": {
+    "bytes": 361874,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1584,
+    "kind": "photo",
+    "sourceHash": "4baf4800672f1e78a7f66d67cbaa189758f620a5911ee04a563da0e67313545e",
+    "variants": [
+      {
+        "bytes": 30748,
+        "height": 352,
+        "src": "/assets/responsive/0d7972c2ccb83f6a08ac-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 57112,
+        "height": 528,
+        "src": "/assets/responsive/0d7972c2ccb83f6a08ac-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 103832,
+        "height": 792,
+        "src": "/assets/responsive/0d7972c2ccb83f6a08ac-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 164012,
+        "height": 1056,
+        "src": "/assets/responsive/0d7972c2ccb83f6a08ac-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-115-img41.webp": {
+    "bytes": 394372,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1226,
+    "kind": "photo",
+    "sourceHash": "ce5f07f567d0d98c2addf8592945248a4a448b3c6b8971accb0389a98cb67c10",
+    "variants": [
+      {
+        "bytes": 22396,
+        "height": 272,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 45686,
+        "height": 409,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 91822,
+        "height": 613,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 163464,
+        "height": 817,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-1329-imgRectangle47.webp": {
+    "bytes": 390278,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "24cc7b1064cc7cf0af81ba1f217e2036b2598166eff5608cb67cc557142aaf76",
+    "variants": [
+      {
+        "bytes": 32926,
+        "height": 360,
+        "src": "/assets/responsive/d2284d877c2aa53a6f4b-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 67894,
+        "height": 540,
+        "src": "/assets/responsive/d2284d877c2aa53a6f4b-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 135222,
+        "height": 810,
+        "src": "/assets/responsive/d2284d877c2aa53a6f4b-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 209972,
+        "height": 1080,
+        "src": "/assets/responsive/d2284d877c2aa53a6f4b-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-1329-imgRectangle48.webp": {
+    "bytes": 89410,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 436,
+    "kind": "photo",
+    "sourceHash": "9942a630ee2c6cc86c379c4fb963e19c1a94ccd3900013889eeca98e88c6a8b3",
+    "variants": [
+      {
+        "bytes": 37654,
+        "height": 272,
+        "src": "/assets/responsive/75b806b1facb92741dae-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-1329-imgRectangle49.webp": {
+    "bytes": 1022576,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1600,
+    "kind": "photo",
+    "sourceHash": "d16a2970625df5db2469a5d2cf88b14c584ed0e8aeee6c89e4cf4cf0ac68e3a7",
+    "variants": [
+      {
+        "bytes": 69980,
+        "height": 356,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 140306,
+        "height": 533,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 289520,
+        "height": 800,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 474544,
+        "height": 1067,
+        "src": "/assets/responsive/bc2b97fa169f28a37368-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-150-imgImg3.webp": {
+    "bytes": 561144,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "9d9b8511221090cdb5bd50d3d5c59ee3466435b31aeed70cf409989e39affa3e",
+    "variants": [
+      {
+        "bytes": 45484,
+        "height": 360,
+        "src": "/assets/responsive/9a94beb6b3069f1e4dff-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 93888,
+        "height": 540,
+        "src": "/assets/responsive/9a94beb6b3069f1e4dff-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 189922,
+        "height": 810,
+        "src": "/assets/responsive/9a94beb6b3069f1e4dff-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 305430,
+        "height": 1080,
+        "src": "/assets/responsive/9a94beb6b3069f1e4dff-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-151-imgImg4.webp": {
+    "bytes": 405710,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "e04be618ccada30020bca873bd183f174fc8074f30049892776e283af64bfd6d",
+    "variants": [
+      {
+        "bytes": 33470,
+        "height": 360,
+        "src": "/assets/responsive/82969c36b31f8c2cda1e-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 71890,
+        "height": 540,
+        "src": "/assets/responsive/82969c36b31f8c2cda1e-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 149502,
+        "height": 810,
+        "src": "/assets/responsive/82969c36b31f8c2cda1e-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 229312,
+        "height": 1080,
+        "src": "/assets/responsive/82969c36b31f8c2cda1e-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-153-imgImg5.webp": {
+    "bytes": 448850,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "74105c49c7f445fc13b458fed0d2a4ef811db9fdc03a217eb862da89e8fa3bf4",
+    "variants": [
+      {
+        "bytes": 41188,
+        "height": 360,
+        "src": "/assets/responsive/a4d49ddcdaefb9ae5dd8-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 82598,
+        "height": 540,
+        "src": "/assets/responsive/a4d49ddcdaefb9ae5dd8-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 162342,
+        "height": 810,
+        "src": "/assets/responsive/a4d49ddcdaefb9ae5dd8-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 244286,
+        "height": 1080,
+        "src": "/assets/responsive/a4d49ddcdaefb9ae5dd8-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-1668-imgOrlaDcDubaiFullWhite2.webp": {
+    "bytes": 58830,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 2880,
+    "kind": "artwork",
+    "sourceHash": "61145006665c6fd2e374bb81388c4d92b31f41fc408ee95dcfafd8c92c198a16",
+    "variants": [
+      {
+        "bytes": 11130,
+        "height": 640,
+        "src": "/assets/responsive/371f4c19a4e11a2fa7a3-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 17958,
+        "height": 960,
+        "src": "/assets/responsive/371f4c19a4e11a2fa7a3-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 28376,
+        "height": 1440,
+        "src": "/assets/responsive/371f4c19a4e11a2fa7a3-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 40504,
+        "height": 1920,
+        "src": "/assets/responsive/371f4c19a4e11a2fa7a3-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-180-imgImg1.webp": {
+    "bytes": 371208,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "ad51aee4d46a39219df2fa19d829c4dd4a73c5911131e5386031fa144d5bec9a",
+    "variants": [
+      {
+        "bytes": 37808,
+        "height": 360,
+        "src": "/assets/responsive/6b57f51268783c899823-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 73988,
+        "height": 540,
+        "src": "/assets/responsive/6b57f51268783c899823-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 138952,
+        "height": 810,
+        "src": "/assets/responsive/6b57f51268783c899823-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 207150,
+        "height": 1080,
+        "src": "/assets/responsive/6b57f51268783c899823-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-180-imgImg2.webp": {
+    "bytes": 394372,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1226,
+    "kind": "photo",
+    "sourceHash": "ce5f07f567d0d98c2addf8592945248a4a448b3c6b8971accb0389a98cb67c10",
+    "variants": [
+      {
+        "bytes": 22396,
+        "height": 272,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 45686,
+        "height": 409,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 91822,
+        "height": 613,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 163464,
+        "height": 817,
+        "src": "/assets/responsive/4cb2b2a95d61a1db2e50-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-180-imgImg3.webp": {
+    "bytes": 282184,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1890,
+    "kind": "photo",
+    "sourceHash": "ed1c686d68d440fa04693b160848bf69f029886a42cdfe26d3e4040b9f5190d9",
+    "variants": [
+      {
+        "bytes": 24342,
+        "height": 420,
+        "src": "/assets/responsive/0f94a6c56ec3563f6bea-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 47520,
+        "height": 630,
+        "src": "/assets/responsive/0f94a6c56ec3563f6bea-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 88212,
+        "height": 945,
+        "src": "/assets/responsive/0f94a6c56ec3563f6bea-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 136000,
+        "height": 1260,
+        "src": "/assets/responsive/0f94a6c56ec3563f6bea-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-283-imgImg1.webp": {
+    "bytes": 659592,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1422,
+    "kind": "photo",
+    "sourceHash": "66815e8b3ddbd6bceabfe35c45540de27a057a4bcf1b571a4d6ba8c12f1927ea",
+    "variants": [
+      {
+        "bytes": 29078,
+        "height": 316,
+        "src": "/assets/responsive/2b7b6202942fdde9d7e6-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 60888,
+        "height": 474,
+        "src": "/assets/responsive/2b7b6202942fdde9d7e6-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 131684,
+        "height": 711,
+        "src": "/assets/responsive/2b7b6202942fdde9d7e6-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 238172,
+        "height": 948,
+        "src": "/assets/responsive/2b7b6202942fdde9d7e6-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-301-img3.webp": {
+    "bytes": 55812,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 436,
+    "kind": "photo",
+    "sourceHash": "2a7020f42859650f02151db7b7156cabb8cdd4d6469557b5223133a459550e9e",
+    "variants": [
+      {
+        "bytes": 30298,
+        "height": 272,
+        "src": "/assets/responsive/23cd39237aa433f34f8d-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-301-imgLogo.webp": {
+    "bytes": 69086,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "artwork",
+    "sourceHash": "46aad82e254ba77a8cbb1bc0da12a794a13984ddd4fd1f8e8a9d072f0a2359d3",
+    "variants": [
+      {
+        "bytes": 22946,
+        "height": 320,
+        "src": "/assets/responsive/a7ffbea10659c6cbfc86-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 62862,
+        "height": 640,
+        "src": "/assets/responsive/a7ffbea10659c6cbfc86-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-301-imgOmniyatLogoWhite3.webp": {
+    "bytes": 40382,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 767,
+    "kind": "artwork",
+    "sourceHash": "a313d3fedd57032899c48d3743e9f1468fdd01df460061c3bac56ac34c157dc9",
+    "variants": [
+      {
+        "bytes": 4250,
+        "height": 85,
+        "src": "/assets/responsive/2dc121aa3cfce6b5776d-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 8368,
+        "height": 170,
+        "src": "/assets/responsive/2dc121aa3cfce6b5776d-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 12144,
+        "height": 256,
+        "src": "/assets/responsive/2dc121aa3cfce6b5776d-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-325-img20221021OrlaGold1.webp": {
+    "bytes": 68444,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "artwork",
+    "sourceHash": "18859a2011a98b45c3bbd59d21673a546671a48496e96e5b7555d85dc55c8d64",
+    "variants": [
+      {
+        "bytes": 20374,
+        "height": 320,
+        "src": "/assets/responsive/2d39c3a3dc0ae4734c09-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 55988,
+        "height": 640,
+        "src": "/assets/responsive/2d39c3a3dc0ae4734c09-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-325-img20221021OrlaGold5.webp": {
+    "bytes": 123914,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "artwork",
+    "sourceHash": "b723b47014e4e1f71265137cf800e6a3d31407ae47ef425c2fc5e97d9d478e4c",
+    "variants": [
+      {
+        "bytes": 22666,
+        "height": 320,
+        "src": "/assets/responsive/998f6ef9f93b82cc42cc-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 69466,
+        "height": 640,
+        "src": "/assets/responsive/998f6ef9f93b82cc42cc-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-345-imgLogo1.webp": {
+    "bytes": 40358,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "artwork",
+    "sourceHash": "25c231e283c2827e53b452145fffbb3d7a38750c2e797cc1468c923f70aa55e8",
+    "variants": [
+      {
+        "bytes": 12368,
+        "height": 320,
+        "src": "/assets/responsive/d2d470550c8cd4b64785-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 33428,
+        "height": 640,
+        "src": "/assets/responsive/d2d470550c8cd4b64785-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-345-imgLogoMain.webp": {
+    "bytes": 26456,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "artwork",
+    "sourceHash": "e15a2430923ee4e4f488335a26be3c1e7efd46e9a990a5481435e5e24dd1f10d",
+    "variants": [
+      {
+        "bytes": 5906,
+        "height": 320,
+        "src": "/assets/responsive/6ea67ca4e54923adf924-w320.webp",
+        "width": 320
+      },
+      {
+        "bytes": 17010,
+        "height": 640,
+        "src": "/assets/responsive/6ea67ca4e54923adf924-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-4-imgAsfafas11Sdg1.webp": {
+    "bytes": 225192,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 2094,
+    "kind": "photo",
+    "sourceHash": "6fa20ddca0bb0530c8e1d645afcde8f8d46157ee5671901ff0c94976c5f2f851",
+    "variants": [
+      {
+        "bytes": 25504,
+        "height": 465,
+        "src": "/assets/responsive/d86881d53386e842266c-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 46216,
+        "height": 698,
+        "src": "/assets/responsive/d86881d53386e842266c-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 85664,
+        "height": 1047,
+        "src": "/assets/responsive/d86881d53386e842266c-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 120578,
+        "height": 1396,
+        "src": "/assets/responsive/d86881d53386e842266c-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-4-imgGroup100000316711.webp": {
+    "bytes": 616112,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 2282,
+    "kind": "photo",
+    "sourceHash": "2d6dd5932605676e4597662d4e5fb5216c3b0f38999cd566acbce28566765beb",
+    "variants": [
+      {
+        "bytes": 62276,
+        "height": 507,
+        "src": "/assets/responsive/0f722cdddaafb2c5c12f-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 125666,
+        "height": 761,
+        "src": "/assets/responsive/0f722cdddaafb2c5c12f-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 212912,
+        "height": 1141,
+        "src": "/assets/responsive/0f722cdddaafb2c5c12f-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 434128,
+        "height": 1521,
+        "src": "/assets/responsive/0f722cdddaafb2c5c12f-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-4-imgSdggs1.webp": {
+    "bytes": 23770,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1658,
+    "kind": "photo",
+    "sourceHash": "ae01d6acb3fb8ed4fa1387d0b24546781650ee30aa6d50ce0be34c543d33df48",
+    "variants": [
+      {
+        "bytes": 2992,
+        "height": 417,
+        "src": "/assets/responsive/6b7860ecd270cfdf8ab7-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 5034,
+        "height": 626,
+        "src": "/assets/responsive/6b7860ecd270cfdf8ab7-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 9314,
+        "height": 938,
+        "src": "/assets/responsive/6b7860ecd270cfdf8ab7-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 14722,
+        "height": 1251,
+        "src": "/assets/responsive/6b7860ecd270cfdf8ab7-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2544
+  },
+  "/assets/1-44-imgImg.webp": {
+    "bytes": 852424,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 2841,
+    "kind": "photo",
+    "sourceHash": "cabb145d0e1357ab61110d426711e64a22df618bd847d8d3f096f2276bfce754",
+    "variants": [
+      {
+        "bytes": 96554,
+        "height": 909,
+        "src": "/assets/responsive/2cc4e22cf1efdd5090fa-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 212328,
+        "height": 1364,
+        "src": "/assets/responsive/2cc4e22cf1efdd5090fa-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 502696,
+        "height": 2046,
+        "src": "/assets/responsive/2cc4e22cf1efdd5090fa-w1440.webp",
+        "width": 1440
+      }
+    ],
+    "width": 2000
+  },
+  "/assets/1-63-imgLeaf.webp": {
+    "bytes": 83252,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1911,
+    "kind": "photo",
+    "sourceHash": "666f112f1bd48ff9bcdf7ab14ae44cf1e3346000e4a4c484ee71471c8e7c8b9d",
+    "variants": [
+      {
+        "bytes": 19266,
+        "height": 749,
+        "src": "/assets/responsive/43930d11a3fff0cbef6c-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 41564,
+        "height": 1124,
+        "src": "/assets/responsive/43930d11a3fff0cbef6c-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 78088,
+        "height": 1686,
+        "src": "/assets/responsive/43930d11a3fff0cbef6c-w1440.webp",
+        "width": 1440
+      }
+    ],
+    "width": 1632
+  },
+  "/assets/1-78-img4.webp": {
+    "bytes": 359504,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "be906de07bddc241aab5214728d7a2777a7bba4ae7355cd8275c610496415cbb",
+    "variants": [
+      {
+        "bytes": 39864,
+        "height": 360,
+        "src": "/assets/responsive/99df729bfdc6905c7164-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 76472,
+        "height": 540,
+        "src": "/assets/responsive/99df729bfdc6905c7164-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 138594,
+        "height": 810,
+        "src": "/assets/responsive/99df729bfdc6905c7164-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 201224,
+        "height": 1080,
+        "src": "/assets/responsive/99df729bfdc6905c7164-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-87-imgImg2.webp": {
+    "bytes": 139360,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1024,
+    "kind": "photo",
+    "sourceHash": "5f401431965afee54f12bacbccbef4c53be299af8b0b6ab32e8ae734b740d373",
+    "variants": [
+      {
+        "bytes": 64578,
+        "height": 640,
+        "src": "/assets/responsive/b080bfee8a3dfd2ed369-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-88-imgImg1.webp": {
+    "bytes": 119748,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1224,
+    "kind": "photo",
+    "sourceHash": "9288dd406428e5a7c3b62baff437117fe29fe802e37d615279c5694e54f75fdd",
+    "variants": [
+      {
+        "bytes": 18452,
+        "height": 272,
+        "src": "/assets/responsive/62e9a9b0433e340012ae-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 30094,
+        "height": 408,
+        "src": "/assets/responsive/62e9a9b0433e340012ae-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 49360,
+        "height": 612,
+        "src": "/assets/responsive/62e9a9b0433e340012ae-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 69256,
+        "height": 816,
+        "src": "/assets/responsive/62e9a9b0433e340012ae-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/1-89-img1Photo1.webp": {
+    "bytes": 137252,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 564,
+    "kind": "photo",
+    "sourceHash": "3af9392dde790fa30ad0f53626dc4b4d607ab1b1a60d0ffafe15d70d4aa9ee98",
+    "variants": [
+      {
+        "bytes": 55736,
+        "height": 352,
+        "src": "/assets/responsive/e12d12668878c2d44ef4-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 1024
+  },
+  "/assets/1-89-img2Photo1.webp": {
+    "bytes": 490528,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1276,
+    "kind": "photo",
+    "sourceHash": "e874fab542e53897473dc34cd293b08bff99fe4dff880a0d802208823b97151c",
+    "variants": [
+      {
+        "bytes": 51754,
+        "height": 349,
+        "src": "/assets/responsive/988c0472a3b3d1e47a9c-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 112422,
+        "height": 523,
+        "src": "/assets/responsive/988c0472a3b3d1e47a9c-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 241498,
+        "height": 785,
+        "src": "/assets/responsive/988c0472a3b3d1e47a9c-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 397260,
+        "height": 1047,
+        "src": "/assets/responsive/988c0472a3b3d1e47a9c-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2340
+  },
+  "/assets/1-89-img3Photo.webp": {
+    "bytes": 778406,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1920,
+    "kind": "photo",
+    "sourceHash": "119c0835979d3e10b26f3a8e4b251ce5bf8e02a3a43a9230a9bc49dc600a1e03",
+    "variants": [
+      {
+        "bytes": 39700,
+        "height": 427,
+        "src": "/assets/responsive/aea3cf11cd7855583d6a-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 102130,
+        "height": 640,
+        "src": "/assets/responsive/aea3cf11cd7855583d6a-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 232546,
+        "height": 960,
+        "src": "/assets/responsive/aea3cf11cd7855583d6a-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 394664,
+        "height": 1280,
+        "src": "/assets/responsive/aea3cf11cd7855583d6a-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  },
+  "/assets/2036-1233-imgInteriorPhotograph.webp": {
+    "bytes": 395186,
+    "encoder": "Pillow 10.2.0; WebP 1.3.2",
+    "height": 1620,
+    "kind": "photo",
+    "sourceHash": "02fb0fddaa513f4c267879bd09227cd37d83563b48245ed9235ea66c596d5202",
+    "variants": [
+      {
+        "bytes": 36208,
+        "height": 360,
+        "src": "/assets/responsive/bdafcdeb59a912a4979b-w640.webp",
+        "width": 640
+      },
+      {
+        "bytes": 75268,
+        "height": 540,
+        "src": "/assets/responsive/bdafcdeb59a912a4979b-w960.webp",
+        "width": 960
+      },
+      {
+        "bytes": 149680,
+        "height": 810,
+        "src": "/assets/responsive/bdafcdeb59a912a4979b-w1440.webp",
+        "width": 1440
+      },
+      {
+        "bytes": 225672,
+        "height": 1080,
+        "src": "/assets/responsive/bdafcdeb59a912a4979b-w1920.webp",
+        "width": 1920
+      }
+    ],
+    "width": 2880
+  }
+}

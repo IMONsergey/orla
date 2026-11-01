@@ -15,3 +15,9 @@ The release checker initially rejected concurrent image decodes; all 83 unchange
 Added the missing canonical and Open Graph URL using SITE_URL, PUBLIC_SITE_URL or the assigned ORLA origin. Fresh production build and TypeScript passed in job 20261101T113242-e1bee8bed0, and the generated HTML contains exactly one canonical and matching og:url. The release report and reusable production checker are maintained in IMONsergey/LuxuryRealty under docs/RELEASE-2026-11-01.md and scripts/production-qa.mjs.
 
 The actual film and presentation PDF are still absent from source materials; contextual requests remain. Enquiries are privately stored without outgoing email/CRM delivery.
+
+## Dprofile motion polish in progress, 2026-11-01
+
+Inspected all eight ORLA clips in https://dprofile.ru/case/103839/orla-dorchester-collection-dubai. Added registered architecture/water/hotspot movement, line-by-line headings, rectangular photograph reveals, subdued leaf and collage movement, horizontal interior wipes after decode, and in-viewport interactive callouts. The film action opens the supplied 15.63s genuine promotional excerpt on demand; full presentation remains an enquiry. The film does not preload or autoplay on page entry.
+
+Gallery/zoom now handle last request, cancellation, resize and nested focus restoration. Responsive image generation is ready. Source remains unpublished pending server generation, build, normal-motion Chromium/WebKit and production verification.

@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initializeMediaInteractions } from './media-interactions';
 
 type Category = { id: string; count: string; title: string; subtitle?: string; area: string };
 type Feature = { id: string; title: string; image: string; detailImage?: string; caption: string };
@@ -10,23 +11,35 @@ const $ = <T extends Element = HTMLElement>(selector: string, root: ParentNode =
 const $$ = <T extends Element = HTMLElement>(selector: string, root: ParentNode = document) => [...root.querySelectorAll<T>(selector)];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const previousFocus = new WeakMap<HTMLDialogElement, HTMLElement>();
+const dialogStack: HTMLDialogElement[] = [];
+let dialogClickOrigin: HTMLElement | undefined;
+function syncDialogLock() {
+  const open = Boolean(document.querySelector('dialog[open]'));
+  document.documentElement.classList.toggle('modal-open', open);
+  document.body.classList.toggle('modal-open', open);
+}
 
-function openDialog(id: string) {
+function openDialog(id: string, trigger?: HTMLElement) {
   const dialog = document.getElementById(id) as HTMLDialogElement | null;
-  if (!dialog) return;
-  if (dialog.open) return;
-  previousFocus.set(dialog, document.activeElement as HTMLElement);
+  if (!dialog || dialog.open) return;
+  // Safari does not always focus a button when it is clicked.
+  const origin = trigger || dialogClickOrigin || document.activeElement;
+  if (origin instanceof HTMLElement) previousFocus.set(dialog, origin);
   dialog.showModal();
-  document.body.classList.add('modal-open');
+  dialogStack.push(dialog);
+  syncDialogLock();
   if (id === 'menu-dialog') $('.menu-toggle').setAttribute('aria-expanded', 'true');
 }
 function closeDialog(dialog: HTMLDialogElement) { dialog.close(); }
 $$<HTMLDialogElement>('dialog').forEach(dialog => {
   dialog.addEventListener('close', () => {
-    if (!document.querySelector('dialog[open]')) document.body.classList.remove('modal-open');
+    const index = dialogStack.indexOf(dialog);
+    if (index !== -1) dialogStack.splice(index, 1);
+    syncDialogLock();
     if (dialog.id === 'menu-dialog') $('.menu-toggle').setAttribute('aria-expanded', 'false');
     const target = previousFocus.get(dialog);
-    if (target?.isConnected && !target.closest('dialog:not([open])')) target.focus({ preventScroll: true });
+    const remaining = dialogStack.filter(item => item.open).at(-1);
+    if (target?.isConnected && target.getClientRects().length && !target.closest('dialog:not([open]),[inert]') && (!remaining || target.closest('dialog') === remaining)) target.focus({ preventScroll: true });
     if (dialog.id === 'residence-dialog' || dialog.id === 'feature-dialog') {
       const url = new URL(location.href);
       for (const key of ['collection', 'residence', 'feature']) url.searchParams.delete(key);
@@ -56,7 +69,7 @@ function showCollection() {
     : 'Explore a residence at ORLA.';
   if (selectedCategory) setQuery('collection', selectedCategory.id);
 }
-function selectCategory(id: string) {
+function selectCategory(id: string, trigger?: HTMLElement) {
   selectedCategory = config.categories.find(item => item.id === id);
   $$('[data-select-category]').forEach(button => {
     const selected = button.dataset.selectCategory === id;
@@ -64,26 +77,36 @@ function selectCategory(id: string) {
     button.setAttribute('aria-pressed', String(selected));
   });
   showCollection();
-  openDialog('residence-dialog');
+  openDialog('residence-dialog', trigger);
   if (window.matchMedia('(max-width:1100px)').matches) {
     requestAnimationFrame(() => $('.residence-main').scrollIntoView({ block: 'start', behavior: reducedMotion.matches ? 'instant' : 'smooth' }));
   }
 }
-function showResidence() {
+function showResidence(trigger?: HTMLElement) {
   $('[data-collection-panel]').hidden = true;
   $('[data-residence-panel]').hidden = false;
-  openDialog('residence-dialog');
+  openDialog('residence-dialog', trigger);
   setQuery('residence', '401');
 }
 
 let selectedFeature = 'sky-palaces';
-function showFeature(id: string) {
+let featureImageRequest=0;
+function showFeature(id: string, trigger?: HTMLElement) {
   const feature = config.features.find(item => item.id === id);
   if (!feature) return;
   selectedFeature = id;
   $('#feature-title').textContent = feature.title;
   const image = $<HTMLImageElement>('[data-feature-image]');
-  image.src = feature.detailImage || feature.image; image.alt = feature.title;
+  const request=++featureImageRequest,source=feature.detailImage||feature.image;
+  image.setAttribute('aria-busy','true');
+  const prepared=new Image();prepared.decoding='async';prepared.src=source;
+  void prepared.decode().catch(()=>undefined).then(()=>{
+    if(request!==featureImageRequest)return;
+    image.removeAttribute('aria-busy');
+    if(!prepared.naturalWidth)return;
+    // Commit a decoded photograph; a slow new request never blanks the last one.
+    image.src=source;image.alt=feature.title;
+  });
   const copies: Record<string, string> = {
     'sky-palaces': config.skyPalacesCopy,
     interiors: config.interiorCopy,
@@ -100,92 +123,12 @@ function showFeature(id: string) {
     button.classList.toggle('is-active', selected);
     button.setAttribute('aria-current', selected ? 'true' : 'false');
   });
-  openDialog('feature-dialog');
+  openDialog('feature-dialog', trigger);
   setQuery('feature', id);
   $('#feature-dialog').scrollTo({ top: 0, behavior: 'instant' });
 }
 
-let currentSlide = 0;
-function showSlide(index: number) {
-  currentSlide = (index + config.gallery.length) % config.gallery.length;
-  $$('.interiors__slide').forEach((slide, i) => {
-    slide.classList.toggle('is-active', i === currentSlide);
-    slide.setAttribute('aria-hidden', String(i !== currentSlide));
-  });
-  $('[data-gallery-current]').textContent = String(currentSlide + 1);
-}
-let swipeStart: { x: number; y: number } | undefined;
-$('#interior').addEventListener('pointerdown', event => {
-  if ((event.target as HTMLElement).closest('button')) return;
-  swipeStart = { x: event.clientX, y: event.clientY };
-});
-$('#interior').addEventListener('pointerup', event => {
-  if (!swipeStart) return;
-  const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
-  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) showSlide(currentSlide + (dx < 0 ? 1 : -1));
-  swipeStart = undefined;
-});
-$('#interior').addEventListener('keydown', event => {
-  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-    event.preventDefault(); showSlide(currentSlide + (event.key === 'ArrowRight' ? 1 : -1));
-  }
-});
-
-const zoomStage = $('.zoom-stage'), zoomCanvas = $('.zoom-canvas');
-let zoom = 1, panX = 0, panY = 0, isPlan = false;
-const pointers = new Map<number, { x: number; y: number }>();
-let dragOrigin = { x: 0, y: 0, panX: 0, panY: 0 }, pinchOrigin = { distance: 0, zoom: 1 };
-function updateZoom() {
-  zoom = Math.max(1, Math.min(5, zoom));
-  const limitX = zoomStage.clientWidth * (zoom - 1) / 2;
-  const limitY = zoomStage.clientHeight * (zoom - 1) / 2;
-  panX = Math.max(-limitX, Math.min(limitX, panX));
-  panY = Math.max(-limitY, Math.min(limitY, panY));
-  zoomCanvas.style.transform = `${isPlan ? 'translate(-50%,-50%) ' : ''}translate(${panX}px, ${panY}px) scale(${zoom})`;
-  $('[data-zoom-reset]').textContent = zoom === 1 ? 'Fit' : `${Math.round(zoom * 100)}%`;
-}
-function resetZoom() { zoom = 1; panX = 0; panY = 0; updateZoom(); }
-function openZoom(src: string, alt: string, title: string, plan: boolean) {
-  const image = $<HTMLImageElement>('[data-zoom-image]'); image.src = src; image.alt = alt;
-  $('#zoom-title').textContent = title;
-  isPlan = plan; zoomCanvas.classList.toggle('is-plan', plan);
-  openDialog('zoom-dialog'); resetZoom();
-}
-zoomStage.addEventListener('pointerdown', event => {
-  zoomStage.setPointerCapture(event.pointerId);
-  pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-  dragOrigin = { x: event.clientX, y: event.clientY, panX, panY };
-  if (pointers.size === 2) {
-    const [a,b] = [...pointers.values()];
-    pinchOrigin = { distance: Math.hypot(a.x-b.x,a.y-b.y), zoom };
-  }
-  zoomStage.classList.add('is-dragging');
-});
-zoomStage.addEventListener('pointermove', event => {
-  if (!pointers.has(event.pointerId)) return;
-  pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-  if (pointers.size === 2) {
-    const [a,b] = [...pointers.values()];
-    zoom = pinchOrigin.zoom * Math.hypot(a.x-b.x,a.y-b.y) / Math.max(1,pinchOrigin.distance);
-  } else { panX = dragOrigin.panX + event.clientX - dragOrigin.x; panY = dragOrigin.panY + event.clientY - dragOrigin.y; }
-  updateZoom();
-});
-const endPointer = (event: PointerEvent) => { pointers.delete(event.pointerId); if (!pointers.size) zoomStage.classList.remove('is-dragging'); };
-zoomStage.addEventListener('pointerup', endPointer); zoomStage.addEventListener('pointercancel', endPointer);
-zoomStage.addEventListener('wheel', event => {
-  event.preventDefault(); zoom += event.deltaY < 0 ? .15 : -.15; updateZoom();
-}, { passive: false });
-zoomStage.addEventListener('keydown', event => {
-  if (['+', '=', '-', '0', 'ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) event.preventDefault();
-  if (event.key === '+' || event.key === '=') zoom += .5;
-  else if (event.key === '-') zoom -= .5;
-  else if (event.key === '0') { resetZoom(); return; }
-  else if (event.key === 'ArrowLeft') panX -= 40;
-  else if (event.key === 'ArrowRight') panX += 40;
-  else if (event.key === 'ArrowUp') panY -= 40;
-  else if (event.key === 'ArrowDown') panY += 40;
-  updateZoom();
-});
+const {stepGallery,openGallery,openZoom,changeZoom,resetZoom} = initializeMediaInteractions({...config,openDialog},reducedMotion);
 
 const form = $<HTMLFormElement>('#enquiry-form');
 let startedAt = Date.now(), submissionId = crypto.randomUUID(), enquiryContext = 'ORLA, Dorchester Collection', submitting = false, lastSubmittedPayload = '';
@@ -257,31 +200,64 @@ form.addEventListener('input', event => {
   if (input.name) { input.removeAttribute('aria-invalid'); const error = form.querySelector(`[data-error="${input.name}"]`); if (error) error.textContent = ''; }
 });
 
+// The architectural callout opens beside the clicked point and remains in view.
+const heroDetail=$('#hero-hotspot');
+let heroDetailTrigger:HTMLElement|undefined,heroDetailAnimation:Animation|undefined;
+function closeHeroDetail(restoreFocus=false){
+  heroDetailAnimation?.cancel();heroDetail.hidden=true;
+  $$('[data-hotspot]').forEach(button=>button.setAttribute('aria-expanded','false'));
+  if(restoreFocus)heroDetailTrigger?.focus({preventScroll:true});
+}
+function toggleHeroDetail(trigger:HTMLElement){
+  if(!heroDetail.hidden){closeHeroDetail(true);return;}
+  heroDetailTrigger=trigger;heroDetail.hidden=false;
+  const hero=$('.hero'),bounds=hero.getBoundingClientRect(),point=trigger.getBoundingClientRect();
+  const topInset=Math.min(110,Math.max(16,innerHeight-heroDetail.offsetHeight-16));
+  const top=Math.max(topInset,Math.min(point.top+20,innerHeight-heroDetail.offsetHeight-16));
+  heroDetail.style.top=`${Math.min(hero.offsetHeight-heroDetail.offsetHeight-24,Math.max(40,top-bounds.top))}px`;
+  $$('[data-hotspot]').forEach(button=>button.setAttribute('aria-expanded','true'));
+  if(!reducedMotion.matches)heroDetailAnimation=heroDetail.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',transform:'translateY(12px)'},{opacity:1,clipPath:'inset(0 0 0 0)',transform:'translateY(0)'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'});
+  $('[data-hotspot-close]',heroDetail).focus({preventScroll:true});
+}
+
+// The film is fetched only after a deliberate open. Closing it stops playback.
+const presentationVideo=$<HTMLVideoElement>('#orla-film');
+const presentationDialog=$<HTMLDialogElement>('#media-dialog');
+const originalOpenDialog=openDialog;
+function openPresentation(trigger:HTMLElement){
+  originalOpenDialog('media-dialog',trigger);
+  if(!presentationVideo.getAttribute('src')){presentationVideo.poster=presentationVideo.dataset.poster!;presentationVideo.src=presentationVideo.dataset.src!;presentationVideo.load();}
+}
+presentationDialog.addEventListener('close',()=>presentationVideo.pause());
+document.addEventListener('visibilitychange',()=>{if(document.hidden)presentationVideo.pause();});
+
 document.addEventListener('click', event => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, a'); if (!target) return;
+  dialogClickOrigin = target;
+  queueMicrotask(() => { if (dialogClickOrigin === target) dialogClickOrigin = undefined; });
   if (target.hasAttribute('data-close')) { const dialog = target.closest<HTMLDialogElement>('dialog'); if (dialog) closeDialog(dialog); }
   else if (target.hasAttribute('data-enquire')) openEnquiry(target.dataset.enquire || 'ORLA, Dorchester Collection');
-  else if (target.hasAttribute('data-privacy')) openDialog('privacy-dialog');
-  else if (target.dataset.modal) { if (target.dataset.modal === 'residence-dialog') { selectedCategory = undefined; showCollection(); } openDialog(target.dataset.modal); }
-  else if (target.dataset.category) selectCategory(target.dataset.category);
-  else if (target.dataset.selectCategory) selectCategory(target.dataset.selectCategory);
-  else if (target.hasAttribute('data-show-residence')) showResidence();
+  else if (target.hasAttribute('data-privacy')) openDialog('privacy-dialog', target);
+  else if(target.dataset.modal==='media-dialog')openPresentation(target);
+  else if (target.dataset.modal) { if (target.dataset.modal === 'residence-dialog') { selectedCategory = undefined; showCollection(); } openDialog(target.dataset.modal, target); }
+  else if (target.dataset.category) selectCategory(target.dataset.category, target);
+  else if (target.dataset.selectCategory) selectCategory(target.dataset.selectCategory, target);
+  else if (target.hasAttribute('data-show-residence')) showResidence(target);
   else if (target.hasAttribute('data-show-collection')) showCollection();
   else if (target.hasAttribute('data-category-enquire')) openEnquiry(selectedCategory ? `${selectedCategory.title}${selectedCategory.subtitle ? ' / '+selectedCategory.subtitle : ''}` : 'ORLA residence collection');
-  else if (target.dataset.feature) showFeature(target.dataset.feature);
+  else if (target.dataset.feature) showFeature(target.dataset.feature, target);
   else if (target.hasAttribute('data-feature-enquire')) openEnquiry(config.features.find(f => f.id === selectedFeature)?.title || 'ORLA features');
-  else if (target.hasAttribute('data-plan-zoom')) openZoom($<HTMLImageElement>('.plan-preview img').src, 'Residence 401 floor plan', 'Residence 401', true);
-  else if (target.hasAttribute('data-gallery-prev')) showSlide(currentSlide - 1);
-  else if (target.hasAttribute('data-gallery-next')) showSlide(currentSlide + 1);
-  else if (target.hasAttribute('data-gallery-zoom')) { const item = config.gallery[currentSlide]; openZoom(item.image,item.alt,'ORLA Interiors',false); }
-  else if (target.hasAttribute('data-zoom-in')) { zoom += .5; updateZoom(); }
-  else if (target.hasAttribute('data-zoom-out')) { zoom -= .5; updateZoom(); }
+  else if (target.hasAttribute('data-plan-zoom')) openZoom($<HTMLImageElement>('.plan-preview img').src, 'Residence 401 floor plan', 'Residence 401', true, target);
+  else if (target.hasAttribute('data-gallery-prev')) stepGallery(-1);
+  else if (target.hasAttribute('data-gallery-next')) stepGallery(1);
+  else if (target.hasAttribute('data-gallery-zoom')) openGallery(target);
+  else if (target.hasAttribute('data-zoom-in')) changeZoom(.5);
+  else if (target.hasAttribute('data-zoom-out')) changeZoom(-.5);
   else if (target.hasAttribute('data-zoom-reset')) resetZoom();
   else if (target.hasAttribute('data-hotspot')) {
-    const open = $('#hero-hotspot').hidden; $('#hero-hotspot').hidden = !open;
-    $$('[data-hotspot]').forEach(button => button.setAttribute('aria-expanded', String(open)));
+    toggleHeroDetail(target);
   } else if (target.hasAttribute('data-hotspot-close')) {
-    $('#hero-hotspot').hidden = true; $$('[data-hotspot]').forEach(button => button.setAttribute('aria-expanded','false'));
+    closeHeroDetail(true);
   }
   if (target.matches('#menu-dialog a[href^="#"]')) {
     closeDialog($<HTMLDialogElement>('#menu-dialog'));
@@ -289,36 +265,77 @@ document.addEventListener('click', event => {
 });
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !$('#hero-hotspot').hidden && !document.querySelector('dialog[open]')) {
-    $('#hero-hotspot').hidden = true; $$('[data-hotspot]').forEach(button => button.setAttribute('aria-expanded','false'));
+    closeHeroDetail(true);
   }
 });
 
 const header = $('.site-header');
-function updateHeader() { header.classList.toggle('is-scrolled', window.scrollY > 70); }
-window.addEventListener('scroll',updateHeader,{passive:true}); updateHeader();
+let headerScrolled = false;
+function updateHeader() {
+  const scrolled = window.scrollY > 70;
+  if (scrolled === headerScrolled) return;
+  headerScrolled = scrolled;
+  header.classList.toggle('is-scrolled', scrolled);
+}
+window.addEventListener('scroll', updateHeader, {passive:true}); updateHeader();
+const navLinks = $$<HTMLAnchorElement>('.desktop-nav a');
 const navObserver = new IntersectionObserver(entries => {
-  for (const entry of entries) if (entry.isIntersecting) {
-    $$('.desktop-nav a').forEach(link => {
-      if ((link as HTMLAnchorElement).hash === '#'+entry.target.id) link.setAttribute('aria-current','location');
-      else link.removeAttribute('aria-current');
-    });
-  }
-}, { rootMargin:'-10% 0px -65% 0px' });
+  const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => a.boundingClientRect.top-b.boundingClientRect.top);
+  if (!visible.length) return;
+  const id = visible[0].target.id;
+  navLinks.forEach(link => {
+    if (link.hash === '#'+id) link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
+  });
+}, {rootMargin:'-10% 0px -65% 0px'});
 for (const id of ['home','about','residences','features','interior']) navObserver.observe(document.getElementById(id)!);
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ignoreMobileResize:true});
 const motion = gsap.matchMedia();
-motion.add('(prefers-reduced-motion: no-preference)', () => {
-  $$('[data-reveal]').forEach(element => gsap.from(element,{ y:35,opacity:0,duration:1.05,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 94%',once:true} }));
+const revealed = new WeakSet<Element>();
+const customReveals = '.editorial-title,.location-collage>img,.nature__architecture,.arrival__main,.feature-card';
+motion.add('(prefers-reduced-motion:no-preference)', () => {
+  function reveal(element:HTMLElement, children:HTMLElement[], from:gsap.TweenVars, duration=.85, stagger=0) {
+    if (revealed.has(element)) return;
+    gsap.fromTo(children, from, {
+      autoAlpha:1, y:0, yPercent:0, clipPath:'inset(0% 0% 0% 0%)',
+      duration, stagger, ease:'power3.out',
+      scrollTrigger:{trigger:element,start:'top 92%',once:true,onEnter:()=>revealed.add(element)},
+      // Leaving no layer hints on a long document limits compositor memory.
+      clearProps:'transform,opacity,visibility,clipPath'
+    });
+  }
+  $$<HTMLElement>('[data-reveal]').filter(element=>!element.matches(customReveals)).forEach(element=>reveal(element,[element],{autoAlpha:0,y:26}));
+  $$<HTMLElement>('.editorial-title').forEach(heading=>reveal(heading,$$<HTMLElement>(':scope>span,:scope>strong',heading),{autoAlpha:0,yPercent:38},.9,.13));
+  $$<HTMLElement>('.location-collage>img,.nature__architecture,.arrival__main,.arrival__detail').forEach(photo=>reveal(photo,[photo],{autoAlpha:0,y:24,clipPath:'inset(0% 0% 100% 0%)'},1.15));
+  $$<HTMLElement>('.feature-card').forEach(card=>reveal(card,[card],{autoAlpha:0,y:30},.8));
+  $$<HTMLElement>('.lifestyle__copy,.nature__copy,.alike__copy,.arrival__copy,.category-row').forEach(element=>reveal(element,[element],{autoAlpha:0,y:22},.8));
+  // A short opening entrance uses children; scroll motion owns the parent only.
+  if (!revealed.has($('.hero__title-wrap'))) {
+    revealed.add($('.hero__title-wrap'));
+    gsap.fromTo('.hero__title-wrap>h1,.hero__title-wrap>.watch',{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.95,stagger:.15,ease:'power2.out',clearProps:'transform,opacity,visibility'});
+  }
 });
-motion.add('(min-width:1101px) and (prefers-reduced-motion: no-preference)', () => {
-  $$('[data-parallax]').forEach(element => gsap.to(element,{yPercent:Number(element.dataset.parallax),ease:'none',scrollTrigger:{trigger:element.closest('section'),start:'top bottom',end:'bottom top',scrub:1.1}}));
-  gsap.to('.hero__title-wrap',{y:-90,opacity:.35,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'65% top',scrub:1}});
-  gsap.fromTo('.nature__leaf',{rotation:-2},{rotation:2,ease:'none',scrollTrigger:{trigger:'.nature',start:'top bottom',end:'bottom top',scrub:1.4}});
-  gsap.fromTo('.category-art',{y:25},{y:-35,ease:'none',scrollTrigger:{trigger:'.categories',start:'top bottom',end:'bottom top',scrub:1.2}});
+motion.add('(min-width:1101px) and (min-height:650px) and (pointer:fine) and (prefers-reduced-motion:no-preference)', () => {
+  // Architecture, water and its interactive points move as one registered layer.
+  // The natural page scroll supplies the building rise shown in the original case.
+  gsap.fromTo('.hero__architecture,.hero__water,.hero>.hotspot',
+    {y:()=>Math.min(innerHeight*.1,100)},
+    {y:-100,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.55,invalidateOnRefresh:true}});
+  gsap.to('.hero__title-wrap',{y:-70,autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'top -8%',end:'top -70%',scrub:.35}});
+  $$('.hotspot').forEach(point=>gsap.fromTo(point,{autoAlpha:0},{autoAlpha:1,duration:.45,ease:'power2.out',scrollTrigger:{trigger:point,start:'top 84%',once:true}}));
+  gsap.fromTo('.lifestyle__back>img',{scale:1.07,yPercent:3},{scale:1.07,yPercent:-3,ease:'none',scrollTrigger:{trigger:'.lifestyle',start:'top bottom',end:'bottom top',scrub:.65}});
+  gsap.fromTo('.nature__leaf',{rotation:-1.2,yPercent:0},{rotation:1.2,yPercent:-2,ease:'none',scrollTrigger:{trigger:'.nature',start:'top bottom',end:'bottom top',scrub:.8}});
+  gsap.fromTo('.alike__back>img',{scale:1.07,yPercent:3},{scale:1.07,yPercent:-3,ease:'none',scrollTrigger:{trigger:'.alike',start:'top bottom',end:'bottom top',scrub:.65}});
+  $$('.category-art>div').forEach((element,index)=>gsap.fromTo(element,{y:22+index*7},{y:-22-index*7,ease:'none',scrollTrigger:{trigger:'.categories',start:'top bottom',end:'bottom top',scrub:.7}}));
+  gsap.fromTo('.presentation__image',{clipPath:'inset(7% 5% 7% 5%)'},{clipPath:'inset(0% 0% 0% 0%)',ease:'none',scrollTrigger:{trigger:'.presentation',start:'top 90%',end:'top 18%',scrub:.5}});
 });
-window.addEventListener('load',() => ScrollTrigger.refresh(),{once:true});
-document.fonts.ready.then(() => ScrollTrigger.refresh());
+let refreshFrame=0;
+function scheduleRefresh(){cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>ScrollTrigger.refresh());}
+window.addEventListener('load',scheduleRefresh,{once:true});
+window.addEventListener('pageshow',scheduleRefresh);
+document.fonts.ready.then(scheduleRefresh);
 const params = new URLSearchParams(location.search);
 if (params.get('residence') === '401') showResidence();
 else if (params.has('collection')) selectCategory(params.get('collection')!);
