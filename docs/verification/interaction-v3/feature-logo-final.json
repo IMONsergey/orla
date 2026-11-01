@@ -1,0 +1,103 @@
+{
+  "checks": [
+    "Failed feature hides the old photograph, exposes a real Retry, and restores the selected photograph on success",
+    "A late previous image decode cannot overwrite the newest feature title, URL or photograph",
+    "Close invalidates the pending feature request and removes its busy state without reopening the dialog",
+    "Desktop and 390 px partner/footer photographed only after image decode and settled geometry; transparent original source retained"
+  ],
+  "screenshots": [
+    "final-feature-failure.png",
+    "final-feature-retry.png",
+    "final-partner-1440.png",
+    "final-footer-1440.png",
+    "final-partner-390.png",
+    "final-footer-390.png"
+  ],
+  "pageErrors": [],
+  "pass": true,
+  "logos": [
+    {
+      "width": 1440,
+      "geometry": [
+        {
+          "label": "Dorchester Collection",
+          "source": "/assets/1-301-imgLogo.webp",
+          "decoded": true,
+          "natural": [
+            314,
+            314
+          ],
+          "width": 315,
+          "height": 44,
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "ORLA",
+          "source": "/assets/1-1668-imgOrlaDcDubaiFullWhite2.webp",
+          "decoded": true,
+          "natural": [
+            2880,
+            2880
+          ],
+          "width": 67.03125,
+          "height": 24,
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "Dorchester Collection",
+          "source": "/assets/1-1668-imgOrlaDcDubaiFullWhite2.webp",
+          "decoded": true,
+          "natural": [
+            2880,
+            2880
+          ],
+          "width": 150.609375,
+          "height": 24,
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "geometry": [
+        {
+          "label": "Dorchester Collection",
+          "source": "/assets/1-301-imgLogo.webp",
+          "decoded": true,
+          "natural": [
+            314,
+            314
+          ],
+          "width": 279,
+          "height": 38.96875,
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "ORLA",
+          "source": "/assets/1-1668-imgOrlaDcDubaiFullWhite2.webp",
+          "decoded": true,
+          "natural": [
+            2880,
+            2880
+          ],
+          "width": 55.859375,
+          "height": 20,
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "label": "Dorchester Collection",
+          "source": "/assets/1-1668-imgOrlaDcDubaiFullWhite2.webp",
+          "decoded": true,
+          "natural": [
+            2880,
+            2880
+          ],
+          "width": 125.515625,
+          "height": 20,
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-11-01T19:50:03.135Z"
+}

@@ -1,0 +1,1052 @@
+[
+  {
+    "tag": "a",
+    "scope": "document",
+    "attributes": {
+      "href": "#main-content"
+    },
+    "text": "Skip to content"
+  },
+  {
+    "tag": "a",
+    "scope": "desktop-nav",
+    "attributes": {
+      "href": "#home"
+    },
+    "text": "Home"
+  },
+  {
+    "tag": "a",
+    "scope": "desktop-nav",
+    "attributes": {
+      "href": "#about"
+    },
+    "text": "About"
+  },
+  {
+    "tag": "a",
+    "scope": "desktop-nav",
+    "attributes": {
+      "href": "#residences"
+    },
+    "text": "Residences"
+  },
+  {
+    "tag": "a",
+    "scope": "desktop-nav",
+    "attributes": {
+      "href": "#features"
+    },
+    "text": "Features"
+  },
+  {
+    "tag": "a",
+    "scope": "desktop-nav",
+    "attributes": {
+      "href": "#interior"
+    },
+    "text": "Interior"
+  },
+  {
+    "tag": "a",
+    "scope": "site-header",
+    "attributes": {
+      "href": "#home",
+      "aria-label": "ORLA, Dorchester Collection - home"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "site-header",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "ORLA, Dorchester Collection"
+    },
+    "text": "A touch of perfection"
+  },
+  {
+    "tag": "button",
+    "scope": "site-header",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Open navigation",
+      "aria-controls": "menu-dialog",
+      "data-modal": "menu-dialog"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "home",
+    "attributes": {
+      "type": "button",
+      "data-modal": "media-dialog"
+    },
+    "text": "Watch film preview"
+  },
+  {
+    "tag": "button",
+    "scope": "home",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Explore the architecture",
+      "aria-controls": "hero-hotspot",
+      "data-hotspot": null
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "home",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Explore the waterfront setting",
+      "aria-controls": "hero-hotspot",
+      "data-hotspot": null
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "home",
+    "attributes": {
+      "type": "button",
+      "aria-label": "Close detail",
+      "data-hotspot-close": null
+    },
+    "text": ""
+  },
+  {
+    "tag": "a",
+    "scope": "location-collage scene",
+    "attributes": {
+      "href": "#location",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "More about the locationPalm Jumeirah"
+  },
+  {
+    "tag": "button",
+    "scope": "nature scene",
+    "attributes": {
+      "type": "button",
+      "data-modal": "residence-dialog",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Choose your Luxury ResidenceORLA, Dorchester Collection | DUBAI"
+  },
+  {
+    "tag": "button",
+    "scope": "presentation scene",
+    "attributes": {
+      "type": "button",
+      "data-modal": "media-dialog",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Watch ORLA film preview"
+  },
+  {
+    "tag": "a",
+    "scope": "arrival scene",
+    "attributes": {
+      "href": "#location",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "More about the locationPalm Jumeirah"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "infrastructure",
+      "data-reveal": null,
+      "aria-label": "Explore Impression infrastructure"
+    },
+    "text": "Impression infrastructure"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "mansion",
+      "data-reveal": null,
+      "aria-label": "Explore Beach Mansion"
+    },
+    "text": "Beach Mansion"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "interiors",
+      "data-reveal": null,
+      "aria-label": "Explore Interiors from world famous designers"
+    },
+    "text": "Interiors from world famous designers"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "sky-palaces",
+      "data-reveal": null,
+      "aria-label": "Explore Spectacular palaces in the sky"
+    },
+    "text": "Spectacular palaces in the sky"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "beach-club",
+      "data-reveal": null,
+      "aria-label": "Explore ORLA Beach Club"
+    },
+    "text": "ORLA Beach Club"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "layouts",
+      "data-reveal": null,
+      "aria-label": "Explore Unique layouts"
+    },
+    "text": "Unique layouts"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "arrival",
+      "data-reveal": null,
+      "aria-label": "Explore Convenient access"
+    },
+    "text": "Convenient access"
+  },
+  {
+    "tag": "button",
+    "scope": "features",
+    "attributes": {
+      "type": "button",
+      "data-feature": "landscape",
+      "data-reveal": null,
+      "aria-label": "Explore Landscape design"
+    },
+    "text": "Landscape design"
+  },
+  {
+    "tag": "button",
+    "scope": "interior",
+    "attributes": {
+      "type": "button",
+      "data-gallery-prev": null,
+      "aria-label": "Previous interior photograph"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "interior",
+    "attributes": {
+      "type": "button",
+      "data-gallery-next": null,
+      "aria-label": "Next interior photograph"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "interior",
+    "attributes": {
+      "type": "button",
+      "data-gallery-zoom": null,
+      "aria-label": "Enlarge interior photograph"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "residences",
+    "attributes": {
+      "type": "button",
+      "data-modal": "residence-dialog",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Choose your Luxury ResidenceORLA, Dorchester Collection | DUBAI"
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "two-bedroom-simplex"
+    },
+    "text": "16Two Bedroom Simplex2,799 to 4,299 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "three-bedroom-simplex"
+    },
+    "text": "17Three Bedroom Simplex3,181 to 4,435 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "three-bedroom-duplex"
+    },
+    "text": "15Three Bedroom Duplex4,871 to 6,749 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "four-bedroom-simplex"
+    },
+    "text": "6Four Bedroom Simplex4,413 to 4,618 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "four-bedroom-double-height"
+    },
+    "text": "13Four Bedroom DuplexDouble Height Living6,282 to 8,202 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "four-bedroom-duplex"
+    },
+    "text": "18Four Bedroom Duplex7,741 to 11,550 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "sky-palaces"
+    },
+    "text": "3Sky Palaces35,000 to 50,000 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "categories scene",
+    "attributes": {
+      "type": "button",
+      "data-category": "mansion"
+    },
+    "text": "1Mansion55,000 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "location",
+    "attributes": {
+      "type": "button",
+      "data-modal": "location-dialog",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "More about the locationPalm Jumeirah"
+  },
+  {
+    "tag": "button",
+    "scope": "closing scene",
+    "attributes": {
+      "type": "button",
+      "data-modal": "residence-dialog",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Choose your Luxury ResidenceORLA, Dorchester Collection | DUBAI"
+  },
+  {
+    "tag": "button",
+    "scope": "site-footer",
+    "attributes": {
+      "type": "button",
+      "data-modal": "story-dialog"
+    },
+    "text": "ORLA, Dorchester Collection"
+  },
+  {
+    "tag": "button",
+    "scope": "site-footer",
+    "attributes": {
+      "type": "button",
+      "data-privacy": null
+    },
+    "text": "Privacy Policy"
+  },
+  {
+    "tag": "a",
+    "scope": "site-footer",
+    "attributes": {
+      "href": "#home",
+      "aria-label": "Return to top"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "menu-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close navigation"
+    },
+    "text": ""
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#home"
+    },
+    "text": "Home"
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#about"
+    },
+    "text": "About"
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#residences"
+    },
+    "text": "Residences"
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#features"
+    },
+    "text": "Features"
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#interior"
+    },
+    "text": "Interior"
+  },
+  {
+    "tag": "a",
+    "scope": "nav",
+    "attributes": {
+      "href": "#location"
+    },
+    "text": "Location"
+  },
+  {
+    "tag": "button",
+    "scope": "menu-dialog",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "ORLA, Dorchester Collection",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "A touch of perfectionExpress your interest"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close residence selection"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "two-bedroom-simplex"
+    },
+    "text": "16Two Bedroom Simplex2,799 to 4,299 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "three-bedroom-simplex"
+    },
+    "text": "17Three Bedroom Simplex3,181 to 4,435 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "three-bedroom-duplex"
+    },
+    "text": "15Three Bedroom Duplex4,871 to 6,749 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "four-bedroom-simplex"
+    },
+    "text": "6Four Bedroom Simplex4,413 to 4,618 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "four-bedroom-double-height"
+    },
+    "text": "13Four Bedroom DuplexDouble Height Living6,282 to 8,202 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "four-bedroom-duplex"
+    },
+    "text": "18Four Bedroom Duplex7,741 to 11,550 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "sky-palaces"
+    },
+    "text": "3Sky Palaces35,000 to 50,000 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-select-category": "mansion"
+    },
+    "text": "1Mansion55,000 sq. ft."
+  },
+  {
+    "tag": "button",
+    "scope": "residence-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null
+    },
+    "text": "Return to ORLA"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-show-residence": null
+    },
+    "text": "View the Residence 401 plan"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-category-enquire": null
+    },
+    "text": "Express your interest"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-show-residence": null
+    },
+    "text": "Residence 401Floor plan"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 403"
+    },
+    "text": "Residence 403Enquire"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 406"
+    },
+    "text": "Residence 406Enquire"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 407"
+    },
+    "text": "Residence 407Enquire"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 409"
+    },
+    "text": "Residence 409Enquire"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 412"
+    },
+    "text": "Residence 412Enquire"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-plan-zoom": null,
+      "aria-label": "Enlarge Residence 401 floor plan"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "Residence 401",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Express your interestResidence 401"
+  },
+  {
+    "tag": "button",
+    "scope": "residence-main",
+    "attributes": {
+      "type": "button",
+      "data-show-collection": null
+    },
+    "text": "Back to the collection"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close feature"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "infrastructure"
+    },
+    "text": "Impression infrastructure"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "mansion"
+    },
+    "text": "Beach Mansion"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "interiors"
+    },
+    "text": "Interiors from world famous designers"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "sky-palaces"
+    },
+    "text": "Spectacular palaces in the sky"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "beach-club"
+    },
+    "text": "ORLA Beach Club"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "layouts"
+    },
+    "text": "Unique layouts"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "arrival"
+    },
+    "text": "Convenient access"
+  },
+  {
+    "tag": "button",
+    "scope": "nav",
+    "attributes": {
+      "type": "button",
+      "data-feature": "landscape"
+    },
+    "text": "Landscape design"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null
+    },
+    "text": "Back to ORLA"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-content",
+    "attributes": {
+      "type": "button",
+      "data-feature-retry": null
+    },
+    "text": "Retry photograph"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-content",
+    "attributes": {
+      "type": "button",
+      "data-feature-enquire": null
+    },
+    "text": "Express your interest"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-content",
+    "attributes": {
+      "type": "button",
+      "data-feature": "mansion"
+    },
+    "text": "Beach Mansion"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-content",
+    "attributes": {
+      "type": "button",
+      "data-feature": "landscape"
+    },
+    "text": "Landscape design"
+  },
+  {
+    "tag": "button",
+    "scope": "feature-content",
+    "attributes": {
+      "type": "button",
+      "data-feature": "infrastructure"
+    },
+    "text": "Impression infrastructure"
+  },
+  {
+    "tag": "button",
+    "scope": "zoom-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close enlarged image"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "zoom-dialog",
+    "attributes": {
+      "type": "button",
+      "data-zoom-out": null,
+      "aria-label": "Zoom out"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "zoom-dialog",
+    "attributes": {
+      "type": "button",
+      "data-zoom-reset": null
+    },
+    "text": "Fit"
+  },
+  {
+    "tag": "button",
+    "scope": "zoom-dialog",
+    "attributes": {
+      "type": "button",
+      "data-zoom-in": null,
+      "aria-label": "Zoom in"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "location-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close location"
+    },
+    "text": ""
+  },
+  {
+    "tag": "a",
+    "scope": "location-dialog",
+    "attributes": {
+      "href": "https://www.google.com/maps/search/?api=1&query=ORLA+Palm+Jumeirah+Dubai"
+    },
+    "text": "Open location in maps"
+  },
+  {
+    "tag": "button",
+    "scope": "location-dialog",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "ORLA location - Palm Jumeirah",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Explore ORLAExpress your interest"
+  },
+  {
+    "tag": "button",
+    "scope": "story-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close ORLA story"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "media-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close presentation"
+    },
+    "text": ""
+  },
+  {
+    "tag": "video",
+    "scope": "media-dialog",
+    "attributes": {
+      "id": "orla-film",
+      "data-src": "/media/orla-film-preview.mp4",
+      "data-poster": "/media/orla-film-poster.jpg",
+      "aria-label": "ORLA film preview"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "media-dialog",
+    "attributes": {
+      "type": "button",
+      "data-film-retry": null
+    },
+    "text": "Retry film"
+  },
+  {
+    "tag": "button",
+    "scope": "media-dialog",
+    "attributes": {
+      "type": "button",
+      "data-enquire": "ORLA presentation request",
+      "data-astro-cid-3eo5wzm4": "true"
+    },
+    "text": "Request the full presentationORLA, Dorchester Collection"
+  },
+  {
+    "tag": "button",
+    "scope": "privacy-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close privacy policy"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "enquiry-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null,
+      "aria-label": "Close enquiry"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "enquiry-dialog",
+    "attributes": {
+      "type": "button",
+      "data-close": null
+    },
+    "text": "Back to ORLA"
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "hidden",
+      "name": "context"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "name": "website",
+      "type": "text"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "name": "name"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "name": "email",
+      "type": "email"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "name": "phone",
+      "type": "tel"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "radio",
+      "name": "method"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "radio",
+      "name": "method"
+    },
+    "text": ""
+  },
+  {
+    "tag": "textarea",
+    "scope": "enquiry__main",
+    "attributes": {
+      "name": "message"
+    },
+    "text": ""
+  },
+  {
+    "tag": "input",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "checkbox",
+      "name": "consent"
+    },
+    "text": ""
+  },
+  {
+    "tag": "button",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "button",
+      "data-privacy": null
+    },
+    "text": "Privacy Policy"
+  },
+  {
+    "tag": "button",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "submit"
+    },
+    "text": "Send interest"
+  },
+  {
+    "tag": "button",
+    "scope": "enquiry__main",
+    "attributes": {
+      "type": "button",
+      "data-close": null
+    },
+    "text": "Close enquiry"
+  }
+]

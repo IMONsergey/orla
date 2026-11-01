@@ -150,6 +150,7 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
   zoomImage.draggable = false;
   let zoom = 1, panX = 0, panY = 0, zoomFrame = 0, zoomRequest = 0;
   let isPlan = false, fitScale = 1;
+  let zoomState = { src: '', alt: '', title: '', plan: false };
   let ready = false;
   const pointers = new Map<number, Point>();
   let drag: {point: Point; x: number; y: number} | null = null;
@@ -214,6 +215,7 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
     drag = null;
   }
   async function openZoom(src: string, alt: string, title: string, plan = false, trigger?: HTMLElement) {
+    zoomState = { src, alt, title, plan };
     const id = ++zoomRequest;
     ready = false;
     zoomImage.hidden = true;
@@ -303,13 +305,14 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
   const zoomResize = new ResizeObserver(() => { if (zoomDialog.open) { clearPointers(); measureZoom(); } });
   zoomResize.observe(zoomStage, {box: 'border-box'});
   zoomDialog.addEventListener('close', () => {
+    if (zoomDialog.open) return;
     zoomRequest++;
     clearPointers();
     zoomCanvas.style.willChange = 'auto';
   }, {signal});
   reduced.addEventListener('change', () => settleGallery(displayedGallery), {signal});
   return {
-    stepGallery, openGallery, openZoom, changeZoom, resetZoom,
+    stepGallery, openGallery, openZoom, changeZoom, resetZoom, getZoomState: () => ({ ...zoomState }),
     destroy() {
       events.abort(); galleryRequest++; zoomRequest++;
       settleGallery(displayedGallery); clearPointers(); zoomResize.disconnect();

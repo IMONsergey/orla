@@ -1,0 +1,80 @@
+{
+  "base": "http://127.0.0.1:14324",
+  "startedAt": "2026-11-01T19:39:43.733Z",
+  "profiles": [
+    {
+      "profile": "chromium-desktop",
+      "checks": [
+        "Mansion category has no unrelated 401 CTA; nested Back/Forward/Escape preserves context and locks",
+        "Direct collection URL closes to its base URL without consuming another document",
+        "Generic 401 plan, heading focus, nested zoom and Forward image payload work",
+        "Feature tabs replace the active route and restore their actual content on Forward",
+        "Validation, pending close/reopen at top, synthetic success/reset and visible focused 422 field error pass; no real POST",
+        "Watch starts playback with one click; nested enquiry and close pause video; dark CTA is readable",
+        "Failed preview exposes a real retry; retry loads and plays the same genuine film",
+        "Reduced-motion dialog history, no textual arrows and no horizontal document overflow",
+        "A same-task Close then CTA preserves the complete queued intent and URL"
+      ],
+      "errors": [],
+      "screenshots": [
+        "chromium-desktop-plan-forward.png",
+        "chromium-desktop-synthetic-success.png",
+        "chromium-desktop-server-field-error.png",
+        "chromium-desktop-film-cta.png"
+      ],
+      "syntheticPosts": 2
+    },
+    {
+      "profile": "chromium-touch",
+      "checks": [
+        "Mansion category has no unrelated 401 CTA; nested Back/Forward/Escape preserves context and locks",
+        "Direct collection URL closes to its base URL without consuming another document",
+        "Generic 401 plan, heading focus, nested zoom and Forward image payload work",
+        "Feature tabs replace the active route and restore their actual content on Forward",
+        "Validation, pending close/reopen at top, synthetic success/reset and visible focused 422 field error pass; no real POST",
+        "Mobile menu anchor closes before navigation; Back/Forward does not resurrect the menu",
+        "Watch starts playback with one click; nested enquiry and close pause video; dark CTA is readable",
+        "Failed preview exposes a real retry; retry loads and plays the same genuine film",
+        "Reduced-motion dialog history, no textual arrows and no horizontal document overflow",
+        "A same-task Close then CTA preserves the complete queued intent and URL"
+      ],
+      "errors": [],
+      "screenshots": [
+        "chromium-touch-plan-forward.png",
+        "chromium-touch-synthetic-success.png",
+        "chromium-touch-server-field-error.png",
+        "chromium-touch-film-cta.png",
+        "chromium-touch-menu-wordmark.png"
+      ],
+      "syntheticPosts": 2
+    },
+    {
+      "profile": "webkit-touch",
+      "checks": [
+        "Mansion category has no unrelated 401 CTA; nested Back/Forward/Escape preserves context and locks",
+        "Direct collection URL closes to its base URL without consuming another document",
+        "Generic 401 plan, heading focus, nested zoom and Forward image payload work",
+        "Feature tabs replace the active route and restore their actual content on Forward",
+        "Validation, pending close/reopen at top, synthetic success/reset and visible focused 422 field error pass; no real POST",
+        "Mobile menu anchor closes before navigation; Back/Forward does not resurrect the menu",
+        "Watch starts playback with one click; nested enquiry and close pause video; dark CTA is readable",
+        "Failed preview exposes a real retry; retry loads and plays the same genuine film",
+        "Reduced-motion dialog history, no textual arrows and no horizontal document overflow",
+        "A same-task Close then CTA preserves the complete queued intent and URL"
+      ],
+      "errors": [],
+      "screenshots": [
+        "webkit-touch-plan-forward.png",
+        "webkit-touch-synthetic-success.png",
+        "webkit-touch-server-field-error.png",
+        "webkit-touch-film-cta.png",
+        "webkit-touch-menu-wordmark.png"
+      ],
+      "syntheticPosts": 2
+    }
+  ],
+  "pass": true,
+  "completedAt": "2026-11-01T19:40:42.638Z",
+  "scope": "Final behavioral journeys. The three preliminary logo geometry groups and their pictures were superseded by feature-logo-final.json.",
+  "behavioralGroups": 29
+}

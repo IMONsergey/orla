@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initializeMediaInteractions } from './media-interactions';
+import { createDialogHistory } from './dialog-history';
 
 type Category = { id: string; count: string; title: string; subtitle?: string; area: string };
 type Feature = { id: string; title: string; image: string; detailImage?: string; caption: string };
@@ -13,6 +14,8 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const previousFocus = new WeakMap<HTMLDialogElement, HTMLElement>();
 const dialogStack: HTMLDialogElement[] = [];
 let dialogClickOrigin: HTMLElement | undefined;
+let dialogHistory: ReturnType<typeof createDialogHistory<DialogState>> | undefined;
+type DialogState = { id: string; category?: string; view?: 'collection' | 'residence'; feature?: string; context?: string; zoom?: { src: string; alt: string; title: string; plan: boolean } };
 function syncDialogLock() {
   const open = Boolean(document.querySelector('dialog[open]'));
   document.documentElement.classList.toggle('modal-open', open);
@@ -21,7 +24,8 @@ function syncDialogLock() {
 
 function openDialog(id: string, trigger?: HTMLElement) {
   const dialog = document.getElementById(id) as HTMLDialogElement | null;
-  if (!dialog || dialog.open) return;
+  if (!dialog || dialogHistory?.pending) return;
+  if (dialog.open) { dialogHistory?.record(false); return; }
   // Safari does not always focus a button when it is clicked.
   const origin = trigger || dialogClickOrigin || document.activeElement;
   if (origin instanceof HTMLElement) previousFocus.set(dialog, origin);
@@ -29,35 +33,39 @@ function openDialog(id: string, trigger?: HTMLElement) {
   dialogStack.push(dialog);
   syncDialogLock();
   if (id === 'menu-dialog') $('.menu-toggle').setAttribute('aria-expanded', 'true');
+  if (id !== 'media-dialog') document.querySelector<HTMLVideoElement>('#orla-film')?.pause();
+  dialogHistory?.record(true);
 }
-function closeDialog(dialog: HTMLDialogElement) { dialog.close(); }
+function finishDialogClose(dialog: HTMLDialogElement) {
+  if (dialog.open) return; // A queued close event may follow a fast Forward reopen.
+  const index = dialogStack.indexOf(dialog);
+  if (index === -1) return;
+  dialogStack.splice(index, 1);
+  syncDialogLock();
+  if (dialog.id === 'menu-dialog') $('.menu-toggle').setAttribute('aria-expanded', 'false');
+  const target = previousFocus.get(dialog);
+  const remaining = dialogStack.filter(item => item.open).at(-1);
+  if (target?.isConnected && target.getClientRects().length && !target.closest('dialog:not([open]),[inert],[hidden]') && (!remaining || target.closest('dialog') === remaining)) target.focus({ preventScroll: true });
+  else if (remaining) focusDialogHeading(remaining);
+}
+function dismissDialog(dialog: HTMLDialogElement) { dialog.close(); finishDialogClose(dialog); }
+function closeDialog(dialog: HTMLDialogElement) {
+  if (dialog !== dialogStack.at(-1)) return;
+  if (dialogHistory) dialogHistory.close(); else dismissDialog(dialog);
+}
+function focusDialogHeading(dialog: HTMLElement) {
+  const heading = [...dialog.querySelectorAll<HTMLElement>('h2,h3')].find(node => node.getClientRects().length && !node.closest('[hidden]'));
+  if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+}
 $$<HTMLDialogElement>('dialog').forEach(dialog => {
-  dialog.addEventListener('close', () => {
-    const index = dialogStack.indexOf(dialog);
-    if (index !== -1) dialogStack.splice(index, 1);
-    syncDialogLock();
-    if (dialog.id === 'menu-dialog') $('.menu-toggle').setAttribute('aria-expanded', 'false');
-    const target = previousFocus.get(dialog);
-    const remaining = dialogStack.filter(item => item.open).at(-1);
-    if (target?.isConnected && target.getClientRects().length && !target.closest('dialog:not([open]),[inert]') && (!remaining || target.closest('dialog') === remaining)) target.focus({ preventScroll: true });
-    if (dialog.id === 'residence-dialog' || dialog.id === 'feature-dialog') {
-      const url = new URL(location.href);
-      for (const key of ['collection', 'residence', 'feature']) url.searchParams.delete(key);
-      history.replaceState({}, '', url);
-    }
-  });
+  dialog.addEventListener('close', () => finishDialogClose(dialog));
+  dialog.addEventListener('cancel', event => { event.preventDefault(); closeDialog(dialog); });
   dialog.addEventListener('click', event => {
     if (!dialog.classList.contains('small-sheet') || event.target !== dialog) return;
     const box = dialog.getBoundingClientRect();
-    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDialog(dialog);
   });
 });
-function setQuery(key: string, value: string) {
-  const url = new URL(location.href);
-  for (const name of ['collection', 'residence', 'feature']) url.searchParams.delete(name);
-  url.searchParams.set(key, value);
-  history.replaceState({}, '', url);
-}
 
 let selectedCategory: Category | undefined;
 function showCollection() {
@@ -67,10 +75,20 @@ function showCollection() {
   $('[data-collection-detail]').textContent = selectedCategory
     ? `${selectedCategory.count} ${selectedCategory.id === 'sky-palaces' ? 'sky palaces' : selectedCategory.id === 'mansion' ? 'mansion' : 'residences'} · ${selectedCategory.area}${selectedCategory.subtitle ? ' · ' + selectedCategory.subtitle : ''}`
     : 'Explore a residence at ORLA.';
-  if (selectedCategory) setQuery('collection', selectedCategory.id);
+  // The supplied 401 plan has no verified category mapping. Never advertise it
+  // as the plan for a Mansion, Sky Palace, or another selected collection.
+  $('[data-collection-panel] [data-show-residence]').hidden = Boolean(selectedCategory);
+  $$('[data-select-category]').forEach(button => {
+    const selected = button.dataset.selectCategory === selectedCategory?.id;
+    button.classList.toggle('is-selected', selected); button.setAttribute('aria-pressed', String(selected));
+  });
+  dialogHistory?.record(false);
+  const dialog = $<HTMLDialogElement>('#residence-dialog');
+  if (dialog.open) focusDialogHeading($('[data-collection-panel]'));
 }
 function selectCategory(id: string, trigger?: HTMLElement) {
   selectedCategory = config.categories.find(item => item.id === id);
+  if (!selectedCategory) return;
   $$('[data-select-category]').forEach(button => {
     const selected = button.dataset.selectCategory === id;
     button.classList.toggle('is-selected', selected);
@@ -86,11 +104,17 @@ function showResidence(trigger?: HTMLElement) {
   $('[data-collection-panel]').hidden = true;
   $('[data-residence-panel]').hidden = false;
   openDialog('residence-dialog', trigger);
-  setQuery('residence', '401');
+  focusDialogHeading($('[data-residence-panel]'));
 }
 
 let selectedFeature = 'sky-palaces';
 let featureImageRequest=0;
+$<HTMLDialogElement>('#feature-dialog').addEventListener('close', () => {
+  if (!$<HTMLDialogElement>('#feature-dialog').open) {
+    featureImageRequest++;
+    $('[data-feature-image]').removeAttribute('aria-busy');
+  }
+});
 function showFeature(id: string, trigger?: HTMLElement) {
   const feature = config.features.find(item => item.id === id);
   if (!feature) return;
@@ -99,13 +123,19 @@ function showFeature(id: string, trigger?: HTMLElement) {
   const image = $<HTMLImageElement>('[data-feature-image]');
   const request=++featureImageRequest,source=feature.detailImage||feature.image;
   image.setAttribute('aria-busy','true');
+  image.hidden = true;
+  const feedback = $('[data-feature-feedback]'), status = $('[data-feature-image-status]'), retry = $('[data-feature-retry]');
+  feedback.hidden = false; status.textContent = 'Loading photograph…'; retry.hidden = true;
   const prepared=new Image();prepared.decoding='async';prepared.src=source;
   void prepared.decode().catch(()=>undefined).then(()=>{
     if(request!==featureImageRequest)return;
     image.removeAttribute('aria-busy');
-    if(!prepared.naturalWidth)return;
-    // Commit a decoded photograph; a slow new request never blanks the last one.
-    image.src=source;image.alt=feature.title;
+    if(!prepared.naturalWidth){
+      status.textContent = 'The photograph could not be loaded. Please try again.'; retry.hidden = false;
+      return;
+    }
+    // The photograph must belong to the same feature as the current heading.
+    image.src=source;image.alt=feature.title;image.hidden=false;feedback.hidden=true;
   });
   const copies: Record<string, string> = {
     'sky-palaces': config.skyPalacesCopy,
@@ -124,11 +154,11 @@ function showFeature(id: string, trigger?: HTMLElement) {
     button.setAttribute('aria-current', selected ? 'true' : 'false');
   });
   openDialog('feature-dialog', trigger);
-  setQuery('feature', id);
+  if (dialogHistory?.restoring) return;
   $('#feature-dialog').scrollTo({ top: 0, behavior: 'instant' });
 }
 
-const {stepGallery,openGallery,openZoom,changeZoom,resetZoom} = initializeMediaInteractions({...config,openDialog},reducedMotion);
+const {stepGallery,openGallery,openZoom,changeZoom,resetZoom,getZoomState} = initializeMediaInteractions({...config,openDialog},reducedMotion);
 
 const form = $<HTMLFormElement>('#enquiry-form');
 let startedAt = Date.now(), submissionId = crypto.randomUUID(), enquiryContext = 'ORLA, Dorchester Collection', submitting = false, lastSubmittedPayload = '';
@@ -143,7 +173,11 @@ function fieldError(name: string, text: string) {
   const error = form.querySelector(`[data-error="${name}"]`); if (error) error.textContent = text;
 }
 function openEnquiry(context: string) {
-  if (submitting) return;
+  if (submitting) {
+    openDialog('enquiry-dialog');
+    $('#enquiry-dialog').scrollTo({ top: 0, behavior: 'instant' });
+    return;
+  }
   const wasSuccessful = !$('.enquiry__success').hidden;
   if (wasSuccessful) { form.reset(); submissionId = crypto.randomUUID(); lastSubmittedPayload = ''; startedAt = Date.now(); }
   enquiryContext = context;
@@ -155,6 +189,7 @@ function openEnquiry(context: string) {
   clearErrors(); $('[data-submit-label]').textContent = 'Send interest';
   if (Date.now() - startedAt > 6 * 24 * 60 * 60 * 1000) startedAt = Date.now();
   openDialog('enquiry-dialog');
+  $('#enquiry-dialog').scrollTo({ top: 0, behavior: 'instant' });
 }
 form.addEventListener('submit', async event => {
   event.preventDefault(); if (submitting) return; clearErrors();
@@ -172,14 +207,16 @@ form.addEventListener('submit', async event => {
   lastSubmittedPayload = signature;
   const payload = { project:'orla', context:enquiryContext, name, email, phone, consent:true, website:String(values.get('website') || ''), startedAt, submissionId, message };
   submitting = true; form.setAttribute('aria-busy','true');
-  const submit = $<HTMLButtonElement>('button[type=submit]', form); submit.disabled = true;
+  const controls = $$<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLButtonElement>('input,select,textarea,button', form).map(element => ({ element, disabled: element.disabled }));
+  controls.forEach(({ element }) => element.disabled = true);
   $('[data-submit-label]').textContent = 'Sending...';
   $('[data-form-status]', form).textContent = 'Sending your enquiry…';
   const controller = new AbortController(), timeout = window.setTimeout(() => controller.abort(), 20000);
+  let failureTarget: HTMLElement | null = null;
   try {
     const response = await fetch('/api/enquiry', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload), signal:controller.signal });
     const result = await response.json().catch(() => null);
-    if (!response.ok || result?.ok !== true) {
+    if (!response.ok || result?.ok !== true || result?.id !== payload.submissionId) {
       if (result?.fields && typeof result.fields === 'object') for (const [key,value] of Object.entries(result.fields)) fieldError(key,String(value));
       throw new Error(typeof result?.error === 'string' ? result.error : 'Your enquiry could not be sent. Please try again.');
     }
@@ -191,8 +228,14 @@ form.addEventListener('submit', async event => {
     const message = error instanceof Error && error.name === 'AbortError' ? 'The connection timed out. Your details are still here; please try again.' : error instanceof Error ? error.message : 'Your enquiry could not be sent. Please try again.';
     $('[data-form-status]', form).textContent = message;
     $('[data-submit-label]').textContent = 'Try again';
+    failureTarget = form.querySelector<HTMLElement>('[aria-invalid=true]') || $<HTMLElement>('[data-form-status]', form);
   } finally {
-    clearTimeout(timeout); submitting = false; form.removeAttribute('aria-busy'); submit.disabled = false;
+    clearTimeout(timeout); submitting = false; form.removeAttribute('aria-busy'); controls.forEach(({ element, disabled }) => element.disabled = disabled);
+    if (failureTarget && dialogStack.at(-1)?.id === 'enquiry-dialog') {
+      if (!failureTarget.matches('input,select,textarea,button')) failureTarget.tabIndex = -1;
+      failureTarget.focus({ preventScroll: true });
+      (failureTarget.closest('.field') || failureTarget).scrollIntoView({ block: 'center', behavior: 'instant' });
+    }
   }
 });
 form.addEventListener('input', event => {
@@ -268,24 +311,57 @@ reducedMotion.addEventListener('change',()=>{
   scheduleHeroDetail(true);
 });
 
-// The film is fetched only after a deliberate open. Closing it stops playback.
-const presentationVideo=$<HTMLVideoElement>('#orla-film');
-const presentationDialog=$<HTMLDialogElement>('#media-dialog');
-const originalOpenDialog=openDialog;
-function openPresentation(trigger:HTMLElement){
-  originalOpenDialog('media-dialog',trigger);
-  if(!presentationVideo.getAttribute('src')){presentationVideo.poster=presentationVideo.dataset.poster!;presentationVideo.src=presentationVideo.dataset.src!;presentationVideo.load();}
+// Watch starts the genuine preview in the initiating click. The player remains
+// usable when a browser blocks playback, and a failed fetch has an explicit retry.
+const presentationVideo = $<HTMLVideoElement>('#orla-film');
+const presentationDialog = $<HTMLDialogElement>('#media-dialog');
+const videoStatus = $('[data-film-status]');
+const videoRetry = $<HTMLButtonElement>('[data-film-retry]');
+function preparePresentation() {
+  if (!presentationVideo.getAttribute('src') || presentationVideo.error) {
+    presentationVideo.poster = presentationVideo.dataset.poster!;
+    presentationVideo.src = presentationVideo.dataset.src!;
+    presentationVideo.load();
+  }
 }
-presentationDialog.addEventListener('close',()=>presentationVideo.pause());
-document.addEventListener('visibilitychange',()=>{if(document.hidden)presentationVideo.pause();});
+function playPresentation() {
+  preparePresentation();
+  videoStatus.textContent = '';
+  videoRetry.hidden = true;
+  if (presentationVideo.ended) presentationVideo.currentTime = 0;
+  void presentationVideo.play().catch(error => {
+    if (!presentationDialog.open || error?.name === 'AbortError') return;
+    videoStatus.textContent = presentationVideo.error ? 'The film could not be loaded. Please try again.' : 'Press Play in the video player to start the preview.';
+    videoRetry.hidden = !presentationVideo.error;
+  });
+}
+function openPresentation(trigger: HTMLElement) { openDialog('media-dialog', trigger); playPresentation(); }
+presentationVideo.addEventListener('error', () => {
+  videoStatus.textContent = 'The film could not be loaded. Please try again.';
+  videoRetry.hidden = false;
+});
+presentationVideo.addEventListener('playing', () => {
+  // A queued playback request must not start behind a nested enquiry.
+  if (dialogStack.at(-1) !== presentationDialog || document.hidden) { presentationVideo.pause(); return; }
+  videoStatus.textContent = ''; videoRetry.hidden = true;
+});
+presentationDialog.addEventListener('close', () => { if (!presentationDialog.open) presentationVideo.pause(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) presentationVideo.pause(); });
 
 document.addEventListener('click', event => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('button, a'); if (!target) return;
+  if (dialogHistory?.pending) {
+    // Queue the whole intent before it mutates feature, form, or zoom state.
+    event.preventDefault();
+    dialogHistory.defer(() => { if (target.isConnected && target.getClientRects().length && !target.closest('dialog:not([open]),[inert],[hidden]')) target.click(); });
+    return;
+  }
   dialogClickOrigin = target;
   queueMicrotask(() => { if (dialogClickOrigin === target) dialogClickOrigin = undefined; });
   if (target.hasAttribute('data-close')) { const dialog = target.closest<HTMLDialogElement>('dialog'); if (dialog) closeDialog(dialog); }
   else if (target.hasAttribute('data-enquire')) openEnquiry(target.dataset.enquire || 'ORLA, Dorchester Collection');
   else if (target.hasAttribute('data-privacy')) openDialog('privacy-dialog', target);
+  else if (target.hasAttribute('data-film-retry')) playPresentation();
   else if(target.dataset.modal==='media-dialog')openPresentation(target);
   else if (target.dataset.modal) { if (target.dataset.modal === 'residence-dialog') { selectedCategory = undefined; showCollection(); } openDialog(target.dataset.modal, target); }
   else if (target.dataset.category) selectCategory(target.dataset.category, target);
@@ -293,6 +369,7 @@ document.addEventListener('click', event => {
   else if (target.hasAttribute('data-show-residence')) showResidence(target);
   else if (target.hasAttribute('data-show-collection')) showCollection();
   else if (target.hasAttribute('data-category-enquire')) openEnquiry(selectedCategory ? `${selectedCategory.title}${selectedCategory.subtitle ? ' / '+selectedCategory.subtitle : ''}` : 'ORLA residence collection');
+  else if (target.hasAttribute('data-feature-retry')) showFeature(selectedFeature, target);
   else if (target.dataset.feature) showFeature(target.dataset.feature, target);
   else if (target.hasAttribute('data-feature-enquire')) openEnquiry(config.features.find(f => f.id === selectedFeature)?.title || 'ORLA features');
   else if (target.hasAttribute('data-plan-zoom')) openZoom($<HTMLImageElement>('.plan-preview img').src, 'Residence 401 floor plan', 'Residence 401', true, target);
@@ -307,8 +384,12 @@ document.addEventListener('click', event => {
   } else if (target.hasAttribute('data-hotspot-close')) {
     closeHeroDetail(true);
   }
-  if (target.matches('#menu-dialog a[href^="#"]')) {
-    closeDialog($<HTMLDialogElement>('#menu-dialog'));
+  if (target instanceof HTMLAnchorElement && target.hash && target.origin === location.origin && target.pathname === location.pathname && document.getElementById(target.hash.slice(1))) {
+    event.preventDefault();
+    const url = new URL(location.href);
+    for (const key of ['collection', 'residence', 'feature']) url.searchParams.delete(key);
+    url.hash = target.hash;
+    dialogHistory!.navigate(url, () => navigateToHash(false));
   }
 });
 document.addEventListener('keydown', event => {
@@ -447,3 +528,83 @@ const params = new URLSearchParams(location.search);
 if (params.get('residence') === '401') showResidence();
 else if (params.has('collection')) selectCategory(params.get('collection')!);
 else if (params.has('feature')) showFeature(params.get('feature')!);
+
+function captureDialogs(): DialogState[] {
+  return dialogStack.filter(dialog => dialog.open).map(dialog => {
+    const state: DialogState = { id: dialog.id };
+    if (dialog.id === 'residence-dialog') { state.category = selectedCategory?.id; state.view = $('[data-residence-panel]').hidden ? 'collection' : 'residence'; }
+    if (dialog.id === 'feature-dialog') state.feature = selectedFeature;
+    if (dialog.id === 'enquiry-dialog') state.context = enquiryContext;
+    if (dialog.id === 'zoom-dialog') state.zoom = getZoomState();
+    return state;
+  });
+}
+function dialogsFromURL(): DialogState[] {
+  const params = new URLSearchParams(location.search);
+  if (params.get('residence') === '401') return [{ id: 'residence-dialog', view: 'residence' }];
+  const category = params.get('collection');
+  if (config.categories.some(item => item.id === category)) return [{ id: 'residence-dialog', view: 'collection', category: category! }];
+  const feature = params.get('feature');
+  if (config.features.some(item => item.id === feature)) return [{ id: 'feature-dialog', feature: feature! }];
+  return [];
+}
+function restoreDialogs(states: DialogState[]) {
+  const allowed = new Set($$<HTMLDialogElement>('dialog').map(dialog => dialog.id));
+  const next = states.filter(state => allowed.has(state.id));
+  const previous = captureDialogs();
+  let common = 0;
+  while (common < dialogStack.length && common < next.length && dialogStack[common].id === next[common].id) common++;
+  for (const dialog of dialogStack.slice(common).reverse()) dismissDialog(dialog);
+  for (const [index, state] of next.entries()) {
+    // Closing a child must preserve the parent's scroll and return focus to its trigger.
+    if (index < common && JSON.stringify(previous[index]) === JSON.stringify(state)) continue;
+    const dialog = $<HTMLDialogElement>('#' + state.id);
+    if (state.id === 'residence-dialog') {
+      selectedCategory = config.categories.find(item => item.id === state.category);
+      $$('[data-select-category]').forEach(button => {
+        const selected = button.dataset.selectCategory === state.category;
+        button.classList.toggle('is-selected', selected); button.setAttribute('aria-pressed', String(selected));
+      });
+      if (state.view === 'residence') showResidence(); else { showCollection(); openDialog(state.id); }
+    } else if (state.id === 'feature-dialog') showFeature(state.feature || 'sky-palaces');
+    else if (state.id === 'zoom-dialog' && state.zoom) {
+      // Recreate the exact photograph/plan if another viewer was opened since.
+      const image = state.zoom;
+      if (!dialog.open || JSON.stringify(getZoomState()) !== JSON.stringify(image)) void openZoom(image.src, image.alt, image.title, image.plan);
+    } else {
+      if (state.id === 'enquiry-dialog' && state.context && !submitting) {
+        enquiryContext = state.context;
+        $<HTMLInputElement>('input[name=context]', form).value = state.context;
+        $('[data-interest]').textContent = state.context;
+        $('[data-interest-summary]').textContent = state.context;
+      }
+      openDialog(state.id);
+      if (state.id === 'media-dialog') preparePresentation();
+    }
+  }
+  syncDialogLock();
+}
+function navigateToHash(instant = true) {
+  const id = location.hash.slice(1) || 'home', target = document.getElementById(id);
+  if (!target) return;
+  const behavior = instant || reducedMotion.matches ? 'instant' : 'smooth';
+  if (id === 'home') window.scrollTo({ top: 0, behavior });
+  else target.scrollIntoView({ block: 'start', behavior });
+  if (id === 'main-content') target.focus({ preventScroll: true });
+}
+dialogHistory = createDialogHistory<DialogState>({
+  key: 'orlaDialogsV1', capture: captureDialogs, restore: restoreDialogs, fromURL: dialogsFromURL,
+  url: states => {
+    const url = new URL(location.href);
+    for (const key of ['collection', 'residence', 'feature']) url.searchParams.delete(key);
+    for (const state of states) {
+      if (state.id === 'residence-dialog') {
+        if (state.view === 'residence') url.searchParams.set('residence', '401');
+        else if (state.category) url.searchParams.set('collection', state.category);
+      }
+      if (state.id === 'feature-dialog' && state.feature) url.searchParams.set('feature', state.feature);
+    }
+    return url;
+  }, navigate: () => navigateToHash(),
+});
+dialogHistory.initialize();

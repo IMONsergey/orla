@@ -1,0 +1,24 @@
+---
+import { asset } from '../data/assets';
+interface Props { name: 'orla' | 'dorchester' }
+const { name } = Astro.props;
+// Figma 1:331 and 1:330 define these footer frames and visible ink positions.
+// Their PNG node exports include the navy backdrop. Use the transparent, intact
+// white source from 1:1668 instead, keeping its letter proportions unchanged.
+// Source alpha bounds: ORLA (973,876)-(2174,1164), DC (625,1461)-(2522,1671).
+const frame = name === 'orla'
+  ? { width: 81, height: 29, inkLeft: 0, inkTop: 4, inkWidth: 74, inkHeight: 18, sourceLeft: 973, sourceTop: 876, sourceWidth: 1201, sourceHeight: 288 }
+  : { width: 182, height: 29, inkLeft: 37, inkTop: 5, inkWidth: 142, inkHeight: 17, sourceLeft: 625, sourceTop: 1461, sourceWidth: 1897, sourceHeight: 210 };
+const scale = frame.inkWidth / frame.sourceWidth;
+const width = 2880 * scale / frame.width * 100;
+const left = (frame.inkLeft - frame.sourceLeft * scale) / frame.width * 100;
+const inkTop = frame.inkTop + (frame.inkHeight - frame.sourceHeight * scale) / 2;
+const top = (inkTop - frame.sourceTop * scale) / frame.height * 100;
+---
+<span class="brand-wordmark" role="img" aria-label={name === 'orla' ? 'ORLA' : 'Dorchester Collection'} style={`--wordmark-ratio:${frame.width / frame.height}`}>
+  <img src={asset('1:1668', 'imgOrlaDcDubaiFullWhite2')} width="2880" height="2880" alt="" loading="lazy" decoding="async" style={`width:${width}%;left:${left}%;top:${top}%`} />
+</span>
+<style>
+  .brand-wordmark{position:relative;display:block;flex:none;overflow:hidden;width:calc(var(--wordmark-height,24px)*var(--wordmark-ratio));height:var(--wordmark-height,24px)}
+  .brand-wordmark img{position:absolute;max-width:none;height:auto;display:block}
+</style>

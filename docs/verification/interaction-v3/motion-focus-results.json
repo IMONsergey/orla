@@ -1,0 +1,93 @@
+{
+  "scope": "hero-film-hotspot diagnostic",
+  "passed": true,
+  "startedAt": "2026-11-01T19:40:59.991Z",
+  "durationMs": 10358,
+  "errors": [],
+  "engines": [
+    {
+      "engine": "chromium",
+      "passed": true,
+      "pageErrors": [],
+      "unexpectedSubmissions": [],
+      "checks": [
+        {
+          "name": "normal-motion hero",
+          "passed": true,
+          "durationMs": 1061
+        },
+        {
+          "name": "film loads on explicit open and pauses on close",
+          "passed": true,
+          "durationMs": 824
+        },
+        {
+          "name": "hero scroll and hotspot focus",
+          "passed": true,
+          "durationMs": 2445
+        }
+      ],
+      "film": {
+        "initial": {
+          "src": null,
+          "currentSrc": "",
+          "dataSrc": "/media/orla-film-preview.mp4",
+          "preload": "none",
+          "paused": true
+        },
+        "loaded": {
+          "src": "http://127.0.0.1:14324/media/orla-film-preview.mp4",
+          "duration": 15.633333,
+          "readyState": 4,
+          "paused": false,
+          "width": 1920,
+          "height": 890
+        },
+        "closedTime": 0.17509,
+        "requests": 1
+      }
+    },
+    {
+      "engine": "webkit",
+      "passed": true,
+      "pageErrors": [],
+      "unexpectedSubmissions": [],
+      "checks": [
+        {
+          "name": "normal-motion hero",
+          "passed": true,
+          "durationMs": 1560
+        },
+        {
+          "name": "film loads on explicit open and pauses on close",
+          "passed": true,
+          "durationMs": 1010
+        },
+        {
+          "name": "hero scroll and hotspot focus",
+          "passed": true,
+          "durationMs": 2623
+        }
+      ],
+      "film": {
+        "initial": {
+          "src": null,
+          "currentSrc": "",
+          "dataSrc": "/media/orla-film-preview.mp4",
+          "preload": "none",
+          "paused": true
+        },
+        "loaded": {
+          "src": "http://127.0.0.1:14324/media/orla-film-preview.mp4",
+          "duration": 15.634,
+          "readyState": 4,
+          "paused": false,
+          "width": 1920,
+          "height": 890
+        },
+        "closedTime": 0.250568714,
+        "requests": 4
+      }
+    }
+  ]
+}

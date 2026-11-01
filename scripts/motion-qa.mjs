@@ -400,11 +400,10 @@ async function runEngine(engine) {
         if(v.error)throw new Error('Video media error '+v.error.code+': '+v.error.message);
         return v.readyState>=1&&Number.isFinite(v.duration)&&v.duration>0;
       },null,8000);
-      const loaded=await film.evaluate(v=>({src:v.currentSrc,duration:v.duration,readyState:v.readyState,paused:v.paused,width:v.videoWidth,height:v.videoHeight}));
-      assert.equal(loaded.paused,true,'Opening the preview must not autoplay');
-      assert.ok(result.mediaRequests.some(request=>request.url===new URL(initial.dataSrc,base).href),'No video request followed explicit open');
-      await film.evaluate(async v=>{v.muted=true;await v.play();});
       await wait(page,()=>{const v=document.querySelector('#orla-film');return !v.paused&&v.currentTime>.03;},null,5000);
+      const loaded=await film.evaluate(v=>({src:v.currentSrc,duration:v.duration,readyState:v.readyState,paused:v.paused,width:v.videoWidth,height:v.videoHeight}));
+      assert.equal(loaded.paused,false,'Watch must start the requested film without a second Play click');
+      assert.ok(result.mediaRequests.some(request=>request.url===new URL(initial.dataSrc,base).href),'No video request followed explicit open');
       await page.locator('#media-dialog [data-close]').click();
       await wait(page,()=>!document.querySelector('#media-dialog').open&&document.querySelector('#orla-film').paused);
       const closedTime=await film.evaluate(v=>v.currentTime);await frames(page,5);

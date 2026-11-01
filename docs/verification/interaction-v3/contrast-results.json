@@ -1,0 +1,48 @@
+{
+  "pass": true,
+  "checkedAt": "2026-11-01T19:53:09.812Z",
+  "values": [
+    {
+      "name": "feature retry",
+      "color": "rgb(7, 14, 31)",
+      "background": "rgb(255, 246, 237)",
+      "fontSize": "15px",
+      "ratio": 18.00710743238989
+    },
+    {
+      "name": "feature enquiry",
+      "color": "rgb(134, 100, 62)",
+      "background": "rgb(255, 246, 237)",
+      "fontSize": "15px",
+      "ratio": 5.032440562188007
+    },
+    {
+      "name": "collection plan",
+      "color": "rgb(134, 100, 62)",
+      "background": "rgb(255, 246, 237)",
+      "fontSize": "15px",
+      "ratio": 5.032440562188007
+    },
+    {
+      "name": "film request",
+      "color": "rgb(255, 246, 237)",
+      "background": "rgb(7, 14, 31)",
+      "fontSize": "16px",
+      "ratio": 18.00710743238989
+    },
+    {
+      "name": "film retry",
+      "color": "rgb(226, 191, 149)",
+      "background": "rgb(7, 14, 31)",
+      "fontSize": "15px",
+      "ratio": 11.102661789790222
+    },
+    {
+      "name": "location maps",
+      "color": "rgb(226, 191, 149)",
+      "background": "rgb(7, 14, 31)",
+      "fontSize": "15px",
+      "ratio": 11.102661789790222
+    }
+  ]
+}

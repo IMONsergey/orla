@@ -1,0 +1,22 @@
+{
+  "baseline": "cd66952ebb37c4a8214f37cdedde8f27657e1dce",
+  "typescript": {
+    "command": "./node_modules/.bin/tsc --noEmit",
+    "exitCode": 0
+  },
+  "productionBuild": {
+    "command": "npm run build",
+    "exitCode": 0
+  },
+  "enquiryContract": {
+    "command": "node --test tests/enquiry.test.mjs",
+    "exitCode": 0,
+    "testModulesPassed": 1
+  },
+  "diffWhitespace": {
+    "command": "git diff --check",
+    "exitCode": 0
+  },
+  "deployment": "Not performed by this audit agent",
+  "realEnquiryPosts": 0
+}
