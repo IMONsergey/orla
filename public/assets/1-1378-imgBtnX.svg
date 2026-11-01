@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="BtnX">
+<foreignObject x="-4" y="-4" width="76" height="76"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(2px);clip-path:url(#bgblur_0_0_19_clip_path);height:100%;width:100%"></div></foreignObject><circle id="Ellipse 6160" data-figma-bg-blur-radius="4" cx="34" cy="34" r="34" fill="#070E1F"/>
+<g id="Group 1000003165">
+<path id="Line 254" d="M27.143 26.434L41.568 40.859" stroke="white"/>
+<path id="Line 255" d="M26.4359 40.8589L40.8609 26.4339" stroke="white"/>
+</g>
+</g>
+<defs>
+<clipPath id="bgblur_0_0_19_clip_path" transform="translate(4 4)"><circle cx="34" cy="34" r="34"/>
+</clipPath></defs>
+</svg>

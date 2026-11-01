@@ -1,0 +1,153 @@
+---
+import Action from '../components/Action.astro';
+import Enquiry from '../components/Enquiry.astro';
+import { asset } from '../data/assets';
+import { categories, features, gallery, skyPalacesCopy, interiorCopy, arrivalCopy, layoutCopy } from '../data/content';
+import '../styles/global.css';
+import '../styles/page.css';
+const config = { categories, features, gallery, skyPalacesCopy, interiorCopy, arrivalCopy, layoutCopy };
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070e1f" />
+    <title>ORLA, Dorchester Collection | Palm Jumeirah, Dubai</title>
+    <meta name="description" content="Explore ORLA, Dorchester Collection, on Palm Jumeirah. Discover the architecture, residences, interiors and waterfront setting, and express your interest." />
+    <meta property="og:title" content="ORLA, Dorchester Collection | Dubai" /><meta property="og:description" content="Oasis of Comfort and Privacy. Explore ORLA on Palm Jumeirah." /><meta property="og:type" content="website" />
+    <link rel="preload" href="/fonts/catalina-village.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sf-light.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body class="orla-page">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <header class="site-header" data-node-id="1:333">
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#residences">Residences</a><a href="#features">Features</a><a href="#interior">Interior</a>
+      </nav>
+      <a class="brand" href="#home" aria-label="ORLA, Dorchester Collection - home">
+        <img class="brand__orla" src={asset('1:345','imgLogoMain')} alt="ORLA" width="213" height="98" />
+        <img class="brand__dorchester" src={asset('1:345','imgLogo1')} alt="Dorchester Collection, Dubai" width="213" height="52" />
+      </a>
+      <button class="header-enquire" type="button" data-enquire="ORLA, Dorchester Collection">A touch of perfection <span aria-hidden="true">+</span></button>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="menu-dialog" aria-expanded="false" data-modal="menu-dialog"><span></span><span></span></button>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="home" aria-labelledby="hero-title" data-node-id="1:4">
+        <div class="hero__layers" aria-hidden="true">
+          <img class="hero__sky" src={asset('1:4','imgSdggs1')} alt="" width="1440" height="863" fetchpriority="high" />
+          <img class="hero__architecture" data-parallax="-3" src={asset('1:4','imgGroup100000316711')} alt="" width="1440" height="1141" fetchpriority="high" />
+          <div class="hero__water"><img src={asset('1:4','imgAsfafas11Sdg1')} alt="" width="1445" height="1051" /><span></span></div>
+        </div>
+        <div class="hero__title-wrap"><h1 id="hero-title">Oasis<br />of Comfort<br />and Privacy</h1><button class="watch" type="button" data-modal="media-dialog">Watch video <img src={asset('1:4','imgSubtract')} width="25" height="25" alt="" /></button></div>
+        <button class="hotspot hotspot--one" type="button" aria-label="Explore the architecture" aria-controls="hero-hotspot" aria-expanded="false" data-hotspot><img src={asset('1:4','imgX1')} width="51" height="51" alt="" /></button>
+        <button class="hotspot hotspot--two" type="button" aria-label="Explore the waterfront setting" aria-controls="hero-hotspot" aria-expanded="false" data-hotspot><img src={asset('1:4','imgX1')} width="51" height="51" alt="" /></button>
+        <div class="hero-card" id="hero-hotspot" hidden>
+          <img src={asset('1:4','imgRectangle35')} alt="Sunlight through palm leaves" width="300" height="362" />
+          <button type="button" class="hero-card__close" aria-label="Close detail" data-hotspot-close>×</button>
+          <div><h2>In harmony<br />with nature</h2><p>Situated on the crescent of the world-renowned landmark, Palm Jumeirah, ORLA occupies a beachfront position right at the pinnacle of Dubai’s archipelago.</p></div>
+        </div>
+      </section>
+
+      <section class="embodiment scene" id="about" aria-labelledby="embodiment-title" data-node-id="1:37">
+        <h2 class="embodiment__title" id="embodiment-title" data-reveal>Embodiment<br />of impeccable style</h2>
+        <div class="embodiment__content"><p>The ORLA residential complex is located on a</p><div class="area-number" data-reveal><span>29,000</span><small>sq. m.</small></div><div class="embodiment__copy"><p>of coastal area on the bend of the crescent of the island, which offers a magnificent panoramic view of the skyscrapers of Dubai and the turquoise waters of the Arabian Gulf.</p><p>Your residence at ORLA is your exclusive escape, where indoor and outdoor blend seamlessly with sea and sky, as energising light streams through each residence creating eternal vistas from the moment the sun rises above the horizon to the last golden rays shimmering off the sea below.</p></div></div>
+      </section>
+
+      <section class="location-collage scene" aria-label="ORLA beachfront setting" data-node-id="1:89">
+        <img class="location-collage__large" data-reveal src={asset('1:89','img1Photo1')} alt="ORLA viewed from the shoreline" width="990" height="693" loading="lazy" />
+        <img class="location-collage__aerial" data-reveal src={asset('1:89','img2Photo1')} alt="ORLA on the crescent of Palm Jumeirah" width="408" height="591" loading="lazy" />
+        <img class="location-collage__water" data-parallax="-6" src={asset('1:89','img3Photo')} alt="Sunlight on turquoise water" width="254" height="183" loading="lazy" />
+        <div class="location-collage__action"><Action label="More about the location" caption="Palm Jumeirah" href="#location" /></div>
+      </section>
+
+      <section class="lifestyle scene" aria-labelledby="lifestyle-title" data-node-id="1:44">
+        <div class="lifestyle__back"><img src={asset('1:44','imgImg')} alt="ORLA gardens and terraces at dusk" width="1440" height="2045" loading="lazy" /><span></span></div>
+        <h2 id="lifestyle-title" class="editorial-title lifestyle__title" data-reveal><span>A lifestyle</span><strong>Beyond</strong><strong>Compare</strong></h2>
+        <div class="lifestyle__copy"><p>Offering the finest amenities and five-star service,<br />for the pleasure of residents of ORLA’s</p><dl class="residence-stats"><div><dt>85</dt><dd>residences</dd></div><div><dt><span>0</span>3</dt><dd>sky palaces</dd></div><div><dt><span>0</span>1</dt><dd>luxury mansion</dd></div></dl><p>you will find privacy, prestige and personalised<br class="desktop-only" /> service from the moment you set foot<br class="desktop-only" /> <span class="muted">in the vast, elevated lobby.</span></p></div>
+      </section>
+
+      <section class="nature scene" aria-labelledby="nature-title" data-node-id="1:63">
+        <img class="nature__leaf" data-parallax="-4" src={asset('1:63','imgLeaf')} alt="" width="1668" height="1953" loading="lazy" />
+        <img class="nature__architecture" data-reveal src={asset('1:87','imgImg2')} alt="ORLA's flowing balconies among palm trees" width="990" height="645" loading="lazy" />
+        <div class="nature__palm"><img src={asset('1:88','imgImg1')} alt="The geometry of a sunlit palm frond" width="397" height="223" loading="lazy" /></div>
+        <h2 class="editorial-title nature__title" id="nature-title" data-reveal><span>In harmony</span><strong>with nature</strong></h2>
+        <div class="nature__copy"><p>ORLA immerses you in balance and beauty, fostering a deep connection with your space and surroundings. The architecture is conceptualised through the lens of natural elements, integrating flowing water features and lush greenery to erase boundaries and let <span class="muted">positive energy flow through the property.</span></p><p>Organic by design, ORLA’s towers are linked together to optimise the wind flow to assist in channelling the cooling breezes to the residences and situated to allow residents to enjoy both sunrise and sunset experiences.</p><Action label="Choose your Luxury Residence" caption="ORLA, Dorchester Collection | DUBAI" modal="residence-dialog" /></div>
+      </section>
+
+      <section class="presentation scene" aria-label="ORLA presentation" data-node-id="1:78">
+        <div class="presentation__image"><img src={asset('1:78','img4')} alt="ORLA, Dorchester Collection entrance signage" width="1440" height="940" loading="lazy" /></div>
+        <Action class="presentation__action" label="Watch ORLA Presentation" modal="media-dialog" />
+      </section>
+
+      <section class="arrival scene" aria-labelledby="arrival-title" data-node-id="1:100">
+        <h2 class="editorial-title arrival__title" id="arrival-title" data-reveal><span>An arrival</span><strong>to remember</strong></h2>
+        <img class="arrival__main" data-reveal src={asset('1:100','img4')} alt="ORLA's elevated arrival lobby beside flowing water" width="821" height="560" loading="lazy" />
+        <img class="arrival__detail" src={asset('1:100','img5')} alt="Water steps and gardens at ORLA" width="315" height="245" loading="lazy" />
+        <p class="arrival__copy">{arrivalCopy}</p>
+        <div class="arrival__action"><Action label="More about the location" caption="Palm Jumeirah" href="#location" /></div>
+      </section>
+
+      <section class="features scene" id="features" aria-label="Explore ORLA features" data-node-id="1:115">
+        <h2 class="sr-only">An extraordinary way of life</h2>
+        {features.map((feature, index) => <button type="button" class:list={['feature-card', `feature-card--${index + 1}`]} data-feature={feature.id} data-reveal aria-label={`Explore ${feature.title}`}><img src={feature.image} alt={feature.title} loading="lazy" /><span class="feature-card__caption">{feature.caption}</span><span class="feature-card__plus" aria-hidden="true"><img src={asset('1:115','imgBtnX')} width="51" height="51" alt="" /></span></button>)}
+      </section>
+
+      <section class="interiors scene" id="interior" aria-roledescription="carousel" aria-label="ORLA interiors" data-node-id="1:148" tabindex="0">
+        <div class="interiors__slides">{gallery.map((item,index)=><figure class:list={['interiors__slide',{'is-active':index===0}]} data-slide={index} aria-hidden={index!==0}><img src={item.image} alt={item.alt} width="1440" height="940" loading="lazy" /></figure>)}</div>
+        <div class="interiors__shade" aria-hidden="true"></div>
+        <h2 class="interiors__title">Internationally<br />acclaimed<br />interior designers</h2>
+        <p class="interiors__copy">{interiorCopy}</p>
+        <div class="gallery-counter" aria-live="polite"><span data-gallery-current>1</span> <span>/ 4</span></div>
+        <div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Previous interior photograph">←</button><button type="button" data-gallery-next aria-label="Next interior photograph">→</button><button type="button" data-gallery-zoom aria-label="Enlarge interior photograph">↗</button></div>
+      </section>
+
+      <section class="alike scene" id="residences" aria-labelledby="alike-title" data-node-id="1:165">
+        <div class="alike__back"><img src={asset('1:165','imgBack')} alt="" width="1440" height="954" loading="lazy" /><span></span></div>
+        <h2 class="editorial-title alike__title" id="alike-title" data-reveal><span>No two are</span><strong>quite alike</strong></h2>
+        <div class="alike__copy"><p>{layoutCopy}</p><Action label="Choose your Luxury Residence" caption="ORLA, Dorchester Collection | DUBAI" modal="residence-dialog" /></div>
+      </section>
+
+      <section class="categories scene" aria-label="Residence collections" data-node-id="1:180">
+        <div class="category-art" aria-hidden="true"><div><img src={asset('1:180','imgImg1')} alt="" loading="lazy" /></div><div><img src={asset('1:180','imgImg2')} alt="" loading="lazy" /></div><div><img src={asset('1:180','imgImg3')} alt="" loading="lazy" /></div></div>
+        <div class="category-list">{categories.map(c=><button type="button" class="category-row" data-category={c.id}><span class="category-row__count">{c.count}</span><span class="category-row__name">{c.title}{c.subtitle&&<small>{c.subtitle}</small>}</span><span class="category-row__area">{c.area}</span><span class="category-row__plus" aria-hidden="true"><img src={asset('1:180','imgSimple')} width="51" height="51" alt="" /></span></button>)}</div>
+      </section>
+
+      <section class="palm scene" id="location" aria-labelledby="palm-title" data-node-id="1:283">
+        <div class="palm__map"><img src={asset('1:283','imgImg2')} alt="ORLA marked on Palm Jumeirah's crescent" loading="lazy" /></div>
+        <div class="palm__content"><img src={asset('1:283','imgImg1')} width="410" height="202" alt="Aerial overview of Palm Jumeirah" loading="lazy" /><h2 id="palm-title" data-reveal>At the apex<br />of an icon,<br /><strong>Palm Jumeirah</strong></h2><p>An iconic luxury peninsula with a unique connection to the sea, the Palm Jumeirah is a destination without peer, with many of Dubai’s finest restaurants, clubs and beach resorts only moments away, while the rest of the wonders of Dubai lie within easy reach.</p><Action label="More about the location" caption="Palm Jumeirah" modal="location-dialog" /></div>
+      </section>
+
+      <section class="closing scene" aria-labelledby="closing-title" data-node-id="1:298">
+        <div class="closing__back"><img src={asset('1:299','imgBack')} alt="ORLA's landscaped arrival at dusk" width="1444" height="1451" loading="lazy" /><span></span></div>
+        <h2 class="editorial-title closing__title" id="closing-title" data-reveal><strong>Exclusivity</strong><span>at First Sight</span></h2>
+        <div class="closing__action"><Action label="Choose your Luxury Residence" caption="ORLA, Dorchester Collection | DUBAI" modal="residence-dialog" /></div>
+        <div class="partners"><article class="partner partner--omniyat"><img src={asset('1:301','imgOmniyatLogoWhite3')} width="141" height="37" alt="OMNIYAT" loading="lazy" /><h3>Elevating Every Detail</h3><p>One of the most visionary real-estate development and service groups in the Gulf Region, OMNIYAT creates living canvases of residential, commercial, hospitality and retail spaces for a one-of-a-kind premium experience.</p></article><article class="partner partner--dorchester"><img src={asset('1:301','imgLogo')} width="315" height="44" alt="Dorchester Collection" loading="lazy" /><h3>A sense of belonging</h3><p>The true meaning of ‘home’ goes beyond form and function - it is about being welcomed with open arms, appreciated for who you are, and cared for in the ways and at the times when you need it most.</p></article><div class="partner-leaf"><img src={asset('1:301','img3')} width="410" height="266" alt="A sunlit palm leaf" loading="lazy" /></div></div>
+        <footer class="site-footer" data-node-id="1:325"><div><button type="button" data-modal="story-dialog">ORLA, Dorchester Collection</button><button type="button" data-privacy>Privacy Policy</button></div><a class="footer-brand" href="#home" aria-label="Return to top"><img src={asset('1:325','img20221021OrlaGold5')} width="81" height="29" alt="ORLA" /><span></span><img src={asset('1:325','img20221021OrlaGold1')} width="181" height="28" alt="Dorchester Collection" /></a><p>Copyright © All rights reserved. 2023</p></footer>
+      </section>
+    </main>
+
+    <dialog id="menu-dialog" class="sheet menu-sheet" aria-labelledby="menu-title"><button class="round-close" type="button" data-close aria-label="Close navigation">×</button><h2 id="menu-title" class="sr-only">Explore ORLA</h2><img class="menu-brand" src={asset('1:345','imgLogoMain')} alt="ORLA" width="213" height="98" /><nav aria-label="Mobile navigation"><a href="#home">Home</a><a href="#about">About</a><a href="#residences">Residences</a><a href="#features">Features</a><a href="#interior">Interior</a><a href="#location">Location</a></nav><Action label="A touch of perfection" caption="Express your interest" context="ORLA, Dorchester Collection" /></dialog>
+
+    <dialog id="residence-dialog" class="sheet residence-sheet" aria-labelledby="residence-title">
+      <button type="button" class="round-close" data-close aria-label="Close residence selection">×</button>
+      <aside class="residence-sidebar"><h2 id="residence-title">Choose<br />your luxury<br />residence</h2><div class="residence-categories">{categories.map(c=><button type="button" data-select-category={c.id}><span>{c.count}</span><span>{c.title}{c.subtitle&&<small>{c.subtitle}</small>}<small>{c.area}</small></span><span aria-hidden="true">+</span></button>)}</div><button type="button" class="back-link" data-close><span aria-hidden="true">←</span> Return to ORLA</button></aside>
+      <section class="residence-main"><div class="residence-collection" data-collection-panel><p class="eyebrow">ORLA, Dorchester Collection | Dubai</p><h3 data-collection-title>No two are<br />quite alike</h3><img src={asset('1:87','imgImg2')} alt="ORLA residences framed by palm trees" width="990" height="645" loading="lazy" /><div class="collection-details"><p data-collection-detail>Explore a residence at ORLA.</p><button class="text-action" type="button" data-show-residence>View Residence 401 <span aria-hidden="true">→</span></button></div><button class="submit" type="button" data-category-enquire><span>Express your interest</span><span class="submit__circle" aria-hidden="true">→</span></button></div>
+      <div class="residence-detail" data-residence-panel hidden><p class="eyebrow">ORLA, Dorchester Collection | Dubai</p><div class="unit-tabs" aria-label="Residence enquiries"><button type="button" class="is-active" data-show-residence>Residence 401<small>Floor plan</small></button>{['403','406','407','409','412'].map(unit=><button type="button" data-enquire={`Residence ${unit}`}>Residence {unit}<small>Enquire</small></button>)}</div><button class="plan-preview" type="button" data-plan-zoom aria-label="Enlarge Residence 401 floor plan"><img src={asset('1:1378','imgOrlaDcDubaiEbrochureRuPage22')} alt="Residence 401 source floor plan" loading="lazy" /><span aria-hidden="true">+</span></button><h3>Residence <span>401</span></h3><div class="residence-information"><figure><img src={asset('1:1378','imgOrlaDcDubaiEbrochureRuPage0021')} alt="Residence 401 orientation within the building" width="205" height="193" loading="lazy" /><figcaption>Residence orientation</figcaption></figure><div><h4>Residence details</h4><p>Receive current availability, pricing and specifications for Residence 401.</p><Action label="Express your interest" caption="Residence 401" context="Residence 401" /></div></div><button class="text-action" type="button" data-show-collection>← Back to the collection</button></div></section>
+    </dialog>
+
+    <dialog id="feature-dialog" class="sheet feature-sheet" aria-labelledby="feature-title"><button class="round-close" type="button" data-close aria-label="Close feature">×</button><aside class="feature-sidebar"><nav aria-label="ORLA features">{features.map(f=><button type="button" data-feature={f.id}>{f.title}</button>)}</nav><button type="button" class="back-link" data-close><span aria-hidden="true">←</span> Back to ORLA</button></aside><section class="feature-content"><div class="feature-hero"><img data-feature-image src={features[3].image} alt={features[3].title} loading="lazy" /><span>Features</span></div><div class="feature-copy"><h2 id="feature-title">Spectacular palaces in the sky</h2><div><p data-feature-copy>{skyPalacesCopy}</p><button type="button" class="text-action" data-feature-enquire>Express your interest <span aria-hidden="true">→</span></button></div></div><h3 class="related-title">Another Features</h3><div class="related-features">{[features[1],features[7],features[0]].map(f=><button type="button" data-feature={f.id}><img src={f.id==='mansion'?asset('1:1329','imgRectangle47'):f.id==='landscape'?asset('1:1329','imgRectangle48'):asset('1:1329','imgRectangle49')} alt={f.title} loading="lazy" /><span>{f.title}</span></button>)}</div></section></dialog>
+
+    <dialog id="zoom-dialog" class="sheet zoom-sheet" aria-labelledby="zoom-title"><button class="round-close" type="button" data-close aria-label="Close enlarged image">×</button><h2 id="zoom-title">Residence 401</h2><div class="zoom-toolbar" aria-label="Image zoom"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-reset>Fit</button><button type="button" data-zoom-in aria-label="Zoom in">+</button></div><div class="zoom-stage" tabindex="0" aria-label="Enlarged image. Use plus and minus to zoom; drag to pan."><div class="zoom-canvas"><img data-zoom-image src={asset('1:1378','imgOrlaDcDubaiEbrochureRuPage22')} alt="Residence 401 floor plan" /></div></div><p class="zoom-hint">Use + / − to zoom. Drag to explore. Escape to return.</p></dialog>
+
+    <dialog id="location-dialog" class="sheet location-sheet" aria-labelledby="location-dialog-title"><button type="button" class="round-close" data-close aria-label="Close location">×</button><div><h2 id="location-dialog-title">At the apex<br />of an icon,<br /><strong>Palm Jumeirah</strong></h2><p>An iconic luxury peninsula with a unique connection to the sea, the Palm Jumeirah is a destination without peer, with many of Dubai’s finest restaurants, clubs and beach resorts only moments away.</p><a class="text-action" href="https://www.google.com/maps/search/?api=1&query=ORLA+Palm+Jumeirah+Dubai" target="_blank" rel="noopener noreferrer">Open location in maps <span aria-hidden="true">↗</span></a><Action label="Explore ORLA" caption="Express your interest" context="ORLA location - Palm Jumeirah" /></div><img src={asset('1:283','imgImg2')} alt="ORLA's location on Palm Jumeirah" loading="lazy" /></dialog>
+
+    <dialog id="story-dialog" class="sheet story-sheet" aria-labelledby="story-title"><button type="button" class="round-close" data-close aria-label="Close ORLA story">×</button><div class="story-back"><img src={asset('1:1668','imgRectangle55')} alt="" loading="lazy" /></div><h2 id="story-title">Oasis<br />of Comfort<br />and Privacy</h2><p><strong>The name “ORLA” consists of two parts:</strong><br />the French word “or” - “gold” - and the ending “la”, which carries a part of brightness and light. In addition, the name means “Golden Princess” in Celtic.</p><div class="story-mark" style={`mask-image:url(${asset('1:1668','imgRectangle62')})`} aria-hidden="true"></div><div class="story-dorchester"><img src={asset('1:1668','imgOrlaDcDubaiFullWhite2')} alt="Dorchester Collection" loading="lazy" /></div></dialog>
+
+    <dialog id="media-dialog" class="sheet small-sheet" aria-labelledby="media-title"><button type="button" class="round-close" data-close aria-label="Close presentation">×</button><h2 id="media-title">ORLA<br />Presentation</h2><p>The film is not available to stream here. Leave your details to request the ORLA presentation.</p><div class="media-action"><Action label="Request presentation" caption="ORLA, Dorchester Collection" context="ORLA presentation request" /></div></dialog>
+    <dialog id="privacy-dialog" class="sheet small-sheet" aria-labelledby="privacy-title"><button type="button" class="round-close" data-close aria-label="Close privacy policy">×</button><h2 id="privacy-title">Privacy Policy</h2><p>When you submit this form, your details are saved privately for the owner of this website to review and respond to your enquiry.</p><p>Your name, email, phone number, selected interest, preferred contact method and optional message are used to handle your request. This form does not send your details directly to the property developer or third-party agents.</p><p>Only provide information you want the website owner to use for this enquiry. You can request correction or deletion by replying to the response to your enquiry.</p></dialog>
+    <Enquiry />
+    <script id="orla-data" type="application/json" set:html={JSON.stringify(config).replace(/</g,'\\u003c')}></script>
+    <script>import '../scripts/main';</script>
+  </body>
+</html>
