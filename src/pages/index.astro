@@ -6,12 +6,15 @@ import { categories, features, gallery, skyPalacesCopy, interiorCopy, arrivalCop
 import '../styles/global.css';
 import '../styles/page.css';
 const config = { categories, features, gallery, skyPalacesCopy, interiorCopy, arrivalCopy, layoutCopy };
+const canonical = new URL('/', Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#070e1f" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:url" content={canonical} />
     <title>ORLA, Dorchester Collection | Palm Jumeirah, Dubai</title>
     <meta name="description" content="Explore ORLA, Dorchester Collection, on Palm Jumeirah. Discover the architecture, residences, interiors and waterfront setting, and express your interest." />
     <meta property="og:title" content="ORLA, Dorchester Collection | Dubai" /><meta property="og:description" content="Oasis of Comfort and Privacy. Explore ORLA on Palm Jumeirah." /><meta property="og:type" content="website" />
