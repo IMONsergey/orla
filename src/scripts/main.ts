@@ -338,7 +338,65 @@ const navObserver = new IntersectionObserver(entries => {
 }, {rootMargin:'-10% 0px -65% 0px'});
 for (const id of ['home','about','residences','features','interior']) navObserver.observe(document.getElementById(id)!);
 
+// ScrollTrigger clears its recorded scroll when the last trigger is removed.
+// Preserve a reading anchor around its matchMedia transaction, including responsive scene layout.
+// These runtime hooks are used by ScrollTrigger but omitted from GSAP's bundled types.
+const motionLifecycle = gsap as typeof gsap & {
+  addEventListener(type: 'matchMediaInit' | 'matchMedia', listener: () => void): void;
+};
+type MotionPosition = { anchor: HTMLElement | null; top: number; y: number; width: number; height: number };
+function readMotionPosition(): MotionPosition {
+  const readingLine = window.innerHeight * .35;
+  const sections = [...document.querySelectorAll<HTMLElement>('main>section')];
+  const anchor = sections.findLast(element => {
+    const rect = element.getBoundingClientRect();
+    return rect.top <= readingLine && rect.bottom > readingLine;
+  }) || null;
+  return { anchor, top: anchor?.getBoundingClientRect().top || 0, y: window.scrollY, width: innerWidth, height: innerHeight };
+}
+let stableMotionPosition = readMotionPosition();
+let motionPosition: MotionPosition | null = null;
+let positionFrame = 0;
+window.addEventListener('scroll', () => {
+  if (positionFrame || motionPosition) return;
+  positionFrame = requestAnimationFrame(() => {
+    positionFrame = 0;
+    // Resize can clamp scroll before its media-query event. Keep the old anchor.
+    if (!motionPosition && stableMotionPosition.width === innerWidth && stableMotionPosition.height === innerHeight) {
+      stableMotionPosition = readMotionPosition();
+    }
+  });
+}, { passive: true });
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(positionFrame);
+  positionFrame = requestAnimationFrame(() => {
+    positionFrame = 0;
+    if (!motionPosition) stableMotionPosition = readMotionPosition();
+  });
+}, { passive: true });
+motionLifecycle.addEventListener('matchMediaInit', () => {
+  cancelAnimationFrame(positionFrame); positionFrame = 0;
+  motionPosition = stableMotionPosition.width !== innerWidth || stableMotionPosition.height !== innerHeight
+    ? stableMotionPosition : readMotionPosition();
+});
 gsap.registerPlugin(ScrollTrigger);
+// This listener follows ScrollTrigger's refresh. No delayed correction or smooth scroll.
+motionLifecycle.addEventListener('matchMedia', () => {
+  if (!motionPosition) return;
+  const { anchor, top, y, width, height } = motionPosition;
+  const resized = width !== innerWidth || height !== innerHeight;
+  let next = y;
+  if (y < 1) next = 0;
+  else if (anchor?.isConnected) {
+    const rect = anchor.getBoundingClientRect();
+    const readingTop = resized ? Math.max(top, Math.min(0, innerHeight * .35 - rect.height)) : top;
+    next = window.scrollY + rect.top - readingTop;
+  }
+  window.scrollTo({ top: Math.max(0, next), behavior: 'instant' });
+  ScrollTrigger.update();
+  motionPosition = null;
+  stableMotionPosition = readMotionPosition();
+});
 ScrollTrigger.config({ignoreMobileResize:true});
 const motion = gsap.matchMedia();
 const revealed = new WeakSet<Element>();
@@ -381,7 +439,7 @@ motion.add('(min-width:1101px) and (min-height:650px) and (pointer:fine) and (pr
   gsap.fromTo('.presentation__image',{clipPath:'inset(7% 5% 7% 5%)'},{clipPath:'inset(0% 0% 0% 0%)',ease:'none',scrollTrigger:{trigger:'.presentation',start:'top 90%',end:'top 18%',scrub:.5}});
 });
 let refreshFrame=0;
-function scheduleRefresh(){cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>ScrollTrigger.refresh());}
+function scheduleRefresh(){cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>{if(ScrollTrigger.getAll().length)ScrollTrigger.refresh();});}
 window.addEventListener('load',scheduleRefresh,{once:true});
 window.addEventListener('pageshow',scheduleRefresh);
 document.fonts.ready.then(scheduleRefresh);

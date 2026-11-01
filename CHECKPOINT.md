@@ -4,7 +4,7 @@ Original Figma implementation retained from commit 40cec3fe. Fresh production bu
 
 Fixes: bounds aligned with server, preferred contact prefix included in message limit, same UUID across unchanged retries and reopening, new UUID after edited submitted payload, truthful success state, configured storage readiness. No external notification is sent.
 
-Vercel project: orla-imon / prj_KhdhyqgDAC2ngjav8TOjX1rWkupn. Private store: store_AEcgaRBGLN2sbvKY. Encrypted store token configured. Next: push this verified patch, deploy production, test actual HTTP and synthetic private enquiry persistence. Publication was authorized in the original conversation.
+Vercel project: orla-imon / prj_KhdhyqgDAC2ngjav8TOjX1rWkupn. Private store: store_AEcgaRBGLN2sbvKY. Encrypted store token configured. At the initial checkpoint, publication and production HTTP/storage acceptance were the next steps; their completed results are recorded below. Publication was authorized in the original conversation.
 
 ## Continuation and production acceptance, 2026-11-01
 
@@ -39,3 +39,14 @@ Final source acceptance in the isolated Linux workspace:
 - Owned Astro startup/shutdown: foreground HTTP 200, confirmed process exit and closed port. Both harnesses use --ignore-lock to prevent Astro's agent-inferred daemon mode.
 
 Reports and exact coverage are documented in docs/MOTION-QA.md. Final execution sessions: 90858 (focused), 15681 (full motion and base browser), 59104 (build/type/syntax/server lifecycle). The source was handed to the release owner without commit, push or deployment from this continuation. The authoritative final commit, deployment and live acceptance record is [MOTION-RELEASE-2026-11-01.md](https://github.com/IMONsergey/LuxuryRealty/blob/main/docs/MOTION-RELEASE-2026-11-01.md).
+
+
+## Fresh visual and interaction continuation, 2026-11-01 v2
+
+A fresh audit began from published source 56634c9, with new captures of all thirteen sections, actual navigation, all feature/residence states and modal flows. Text arrows and close/plus/minus glyphs were replaced with decorative SVG controls while preserving authored assets, fonts, colors and geometry.
+
+Confirmed repairs: reading-position continuity across motion preferences and responsive layouts; mobile feature-grid min-content overflow; three dialog photograph selectors honoring their existing aspect ratios; native scrollable close controls and their opaque inherited backdrop; gallery recovery after a failed image; and clipped/overlapping heading text on 320px phones. The earlier hotspot, exact gallery tween cancellation and title-refresh repairs remain intact.
+
+Local acceptance: all seven requested Chromium viewport sizes plus desktop/mobile WebKit; 355 broad visual captures, with the complete 33-frame 320px profile repeated after its CSS fix; 142 interaction captures; four both-engine narrow-text profiles; motion 9/9 + 9/9; hotspots 8/8 + 7/7; failed-image recovery in both engines; existing five-width/six-group browser QA; final TypeScript and production build exit 0. Enquiry requests were mocked or blocked. No real submission was sent. The full motion/hotspot checks preceded only the final below-388px typography CSS; their viewports and JavaScript were unchanged, and the affected narrow range plus base browser QA were rerun.
+
+See docs/VISUAL-AUDIT-2026-11-01.md for actual commands, findings, coverage and limits. Six compact selected screenshots and source-hashed results are committed-ready under docs/verification/design-2026-11-01/. Final execution sessions: 82612 (broad/full regression), 3765 (final type/build), 12007 (narrow, fresh 320px sweep and base browser), all exit 0. This is a completed local handoff. Publication and live acceptance remain recorded by the release owner in the shared MOTION-RELEASE-2026-11-01.md link above.

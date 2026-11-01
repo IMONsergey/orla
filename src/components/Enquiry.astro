@@ -1,10 +1,11 @@
 ---
+import Icon from './Icon.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { imageSizes } from '../data/image-sizes';
 import { asset } from '../data/assets';
 ---
 <dialog id="enquiry-dialog" class="sheet enquiry" aria-labelledby="enquiry-title">
-  <button type="button" class="round-close" data-close aria-label="Close enquiry">×</button>
+  <button type="button" class="round-close" data-close aria-label="Close enquiry"><Icon name="close" /></button>
   <div class="enquiry__layout">
     <aside class="enquiry__context">
       <p class="eyebrow">ORLA, Dorchester Collection</p>
@@ -12,7 +13,7 @@ import { asset } from '../data/assets';
       <p>Palm Jumeirah, Dubai</p>
       <ResponsiveImage class="enquiry__photo" src={asset('1:87','imgImg2')} alt="Curving ORLA terraces and palms" width="990" height="645" loading="lazy" sizes={imageSizes.enquiry} />
       <p>Tell us how to reach you. We will help you explore your residence.</p>
-      <button type="button" class="back-link" data-close><span aria-hidden="true">←</span> Back to ORLA</button>
+      <button type="button" class="back-link" data-close><span aria-hidden="true"><Icon name="arrow-left" /></span> Back to ORLA</button>
     </aside>
     <section class="enquiry__main">
       <h2 id="enquiry-title">A touch<br />of perfection</h2>
@@ -29,13 +30,13 @@ import { asset } from '../data/assets';
         <label class="consent"><input type="checkbox" name="consent" required aria-describedby="error-consent" /><span>I agree to be contacted about my enquiry and to the <button class="text-link" type="button" data-privacy>Privacy Policy</button>.</span></label>
         <small class="field-error" id="error-consent" data-error="consent"></small>
         <p class="form-status" role="status" aria-live="polite" data-form-status></p>
-        <button type="submit" class="submit"><span data-submit-label>Send interest</span><span class="submit__circle" aria-hidden="true">→</span></button>
+        <button type="submit" class="submit"><span data-submit-label>Send interest</span><span class="submit__circle" aria-hidden="true"><Icon name="arrow-right" /></span></button>
       </form>
       <div class="enquiry__success" hidden tabindex="-1">
         <p class="eyebrow" data-success-interest></p>
         <h3>Thank you.<br />Your enquiry<br />is saved.</h3>
         <p>Your expression of interest has been saved privately for the website owner to review and respond.</p>
-        <button type="button" class="submit" data-close><span>Return to residences</span><span class="submit__circle" aria-hidden="true">→</span></button>
+        <button type="button" class="submit" data-close><span>Return to residences</span><span class="submit__circle" aria-hidden="true"><Icon name="arrow-right" /></span></button>
       </div>
     </section>
   </div>

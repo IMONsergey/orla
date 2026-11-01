@@ -65,14 +65,22 @@ export function initializeMediaInteractions(config: MediaConfig, reduced: MediaQ
     requestedGallery = (index + slides.length) % slides.length;
     const next = requestedGallery;
     const id = ++galleryRequest;
-    const image = $<HTMLImageElement>('img', slides[next]);
+    let image = $<HTMLImageElement>('img', slides[next]);
     gallery.setAttribute('aria-busy', 'true');
     image.loading = 'eager';
+    if (image.complete && !image.naturalWidth) {
+      // WebKit can retain a failed responsive request after an identical src
+      // assignment. A fresh image retries while retaining every source attribute.
+      const retry = image.cloneNode(false) as HTMLImageElement;
+      image.replaceWith(retry);
+      image = retry;
+    }
     await image.decode().catch(() => undefined);
     if (id !== galleryRequest) return;
     gallery.removeAttribute('aria-busy');
     settleGallery(displayedGallery);
-    if (!image.naturalWidth) { requestedGallery = displayedGallery; return; }
+    // A failed photograph keeps the last decoded frame; another Next can pass it.
+    if (!image.naturalWidth) return;
     if (next === displayedGallery) return;
     const outgoing = slides[displayedGallery], incoming = slides[next];
     displayedGallery = next;

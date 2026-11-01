@@ -1,0 +1,807 @@
+{
+  "project": "orla",
+  "audit": "2026-11-01-v2",
+  "baseline": "56634c9",
+  "pass": true,
+  "sourceSha256": {
+    "src/components/Icon.astro": "4cc312d4b5569eaee7dbaf3a2412b5ebceaa4d71c1e34975dc79f926bdc22e71",
+    "src/components/Enquiry.astro": "4d090534df3ccc298ee89dfd5b794360fe4c1510f86e2fb8b0be2628a3944795",
+    "src/pages/index.astro": "014d33ec9a4a708cf3604802648582d798693aaba09b6340ea37584b688eaadc",
+    "src/scripts/main.ts": "d69520a08033e7b202d0d27137617e1d55e499ee5d65b2428d6441f367071697",
+    "src/scripts/media-interactions.ts": "b3cc79a5b11672b43e1c116f284410435e67d1ad457721a4a97a08295966190a",
+    "src/styles/global.css": "f2c116809e51d2340fe32b27189fe0963a8f29ec87f0af9cb7dfa119a5771054",
+    "src/styles/page.css": "d8d7294a426ee0e0c7f3d8548b7cec51dda3eeb95136f10c4ba85dcad97ceee4"
+  },
+  "build": {
+    "command": "npx tsc --noEmit && npm run build",
+    "exitCode": 0,
+    "executionSession": 3765,
+    "htmlSha256": "fa49f4e1d15bb3bf2225aff0cab6f70b3e4ab60146da540a83860ee37768d3a2"
+  },
+  "visual": {
+    "reports": [
+      "artifacts/pixel-audit-20261101-v2/after/report.json",
+      "artifacts/pixel-audit-20261101-v2/after-320-final/report.json"
+    ],
+    "pass": true,
+    "profiles": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "height": 900,
+        "captures": 42,
+        "glyphs": [],
+        "errors": [],
+        "continuity": {
+          "requested": 10893,
+          "before": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "reduced": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "auto",
+            "reduced": true
+          },
+          "restored": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "honorsReducedScroll": true,
+          "preservesSection": true,
+          "preservesOrlaScroll": true,
+          "mobile": {
+            "gallery": {
+              "top": 99.59375,
+              "bottom": 999.59375,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6741,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 99.59375,
+            "targetBottom": 999.59375,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "desktop": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "preservesResizeSection": true
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 1920,
+        "height": 1080,
+        "captures": 35,
+        "glyphs": [],
+        "errors": [],
+        "continuity": null
+      },
+      {
+        "engine": "chromium",
+        "width": 1024,
+        "height": 900,
+        "captures": 32,
+        "glyphs": [],
+        "errors": [],
+        "continuity": null
+      },
+      {
+        "engine": "chromium",
+        "width": 768,
+        "height": 1024,
+        "captures": 25,
+        "glyphs": [],
+        "errors": [],
+        "continuity": null
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "height": 844,
+        "captures": 35,
+        "glyphs": [],
+        "errors": [],
+        "continuity": {
+          "requested": 6820.265625,
+          "before": {
+            "gallery": {
+              "top": 100.265625,
+              "bottom": 1000.265625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6820,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.265625,
+            "targetBottom": 1000.265625,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "reduced": {
+            "gallery": {
+              "top": 100.265625,
+              "bottom": 1000.265625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6820,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.265625,
+            "targetBottom": 1000.265625,
+            "scrollBehavior": "auto",
+            "reduced": true
+          },
+          "restored": {
+            "gallery": {
+              "top": 100.265625,
+              "bottom": 1000.265625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6820,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.265625,
+            "targetBottom": 1000.265625,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "honorsReducedScroll": true,
+          "preservesSection": true,
+          "preservesOrlaScroll": true
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 844,
+        "height": 390,
+        "captures": 76,
+        "glyphs": [],
+        "errors": [],
+        "continuity": {
+          "requested": 9355.515625,
+          "before": {
+            "gallery": {
+              "top": 99.515625,
+              "bottom": 949.515625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 9356,
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "targetTop": 99.515625,
+            "targetBottom": 949.515625,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "reduced": {
+            "gallery": {
+              "top": 99.515625,
+              "bottom": 949.515625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 9356,
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "targetTop": 99.515625,
+            "targetBottom": 949.515625,
+            "scrollBehavior": "auto",
+            "reduced": true
+          },
+          "restored": {
+            "gallery": {
+              "top": 99.515625,
+              "bottom": 949.515625,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 9356,
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "targetTop": 99.515625,
+            "targetBottom": 949.515625,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "honorsReducedScroll": true,
+          "preservesSection": true,
+          "preservesOrlaScroll": true
+        }
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "height": 900,
+        "captures": 42,
+        "glyphs": [],
+        "errors": [],
+        "continuity": {
+          "requested": 10893,
+          "before": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "reduced": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "auto",
+            "reduced": true
+          },
+          "restored": {
+            "gallery": {
+              "top": 100,
+              "bottom": 1040,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10893,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 100,
+            "targetBottom": 1040,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "honorsReducedScroll": true,
+          "preservesSection": true,
+          "preservesOrlaScroll": true,
+          "mobile": {
+            "gallery": {
+              "top": 100.6875,
+              "bottom": 1000.6875,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6737,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.6875,
+            "targetBottom": 1000.6875,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "desktop": {
+            "gallery": {
+              "top": 101,
+              "bottom": 1041,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 10892,
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "targetTop": 101,
+            "targetBottom": 1041,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "preservesResizeSection": true
+        }
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "height": 844,
+        "captures": 35,
+        "glyphs": [],
+        "errors": [],
+        "continuity": {
+          "requested": 6737.6875,
+          "before": {
+            "gallery": {
+              "top": 100.6875,
+              "bottom": 1000.6875,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6737,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.6875,
+            "targetBottom": 1000.6875,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "reduced": {
+            "gallery": {
+              "top": 100.6875,
+              "bottom": 1000.6875,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6737,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.6875,
+            "targetBottom": 1000.6875,
+            "scrollBehavior": "auto",
+            "reduced": true
+          },
+          "restored": {
+            "gallery": {
+              "top": 100.6875,
+              "bottom": 1000.6875,
+              "visible": true
+            },
+            "active": "interior",
+            "scrollY": 6737,
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "targetTop": 100.6875,
+            "targetBottom": 1000.6875,
+            "scrollBehavior": "smooth",
+            "reduced": false
+          },
+          "honorsReducedScroll": true,
+          "preservesSection": true,
+          "preservesOrlaScroll": true
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 320,
+        "height": 800,
+        "captures": 33,
+        "glyphs": [],
+        "errors": [],
+        "continuity": null
+      }
+    ],
+    "note": "The complete 320px profile was regenerated after its two measured typography corrections. Other tested widths are outside those changed CSS ranges. Footer content is covered by the final Closing tiles; the older MAX_SAFE_INTEGER footer request produced a duplicate Hero frame and is superseded by the corrected finite-bottom harness and new 320px footer capture."
+  },
+  "narrowText": {
+    "pass": true,
+    "profiles": [
+      {
+        "engine": "chromium",
+        "width": 320,
+        "compareRight": 290.75,
+        "titleCopyGap": 33.8125,
+        "issues": []
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "compareRight": 349.15625,
+        "titleCopyGap": 31.609375,
+        "issues": []
+      },
+      {
+        "engine": "webkit",
+        "width": 320,
+        "compareRight": 290.74951171875,
+        "titleCopyGap": 37,
+        "issues": []
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "compareRight": 349.4467468261719,
+        "titleCopyGap": 34,
+        "issues": []
+      }
+    ]
+  },
+  "interactions": {
+    "pass": true,
+    "profiles": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "height": 900,
+        "captures": 54,
+        "issues": []
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "height": 844,
+        "captures": 59,
+        "issues": []
+      },
+      {
+        "engine": "chromium",
+        "width": 320,
+        "height": 844,
+        "captures": 12,
+        "issues": []
+      },
+      {
+        "engine": "chromium",
+        "width": 844,
+        "height": 390,
+        "captures": 17,
+        "issues": []
+      }
+    ],
+    "pageErrors": [],
+    "unexpectedRequests": []
+  },
+  "motion": {
+    "pass": true,
+    "durationMs": 37858,
+    "engines": [
+      {
+        "engine": "chromium",
+        "pass": true,
+        "checks": [
+          {
+            "name": "normal-motion hero",
+            "pass": true
+          },
+          {
+            "name": "film loads on explicit open and pauses on close",
+            "pass": true
+          },
+          {
+            "name": "hero scroll and hotspot focus",
+            "pass": true
+          },
+          {
+            "name": "rectangle and editorial reveal",
+            "pass": true
+          },
+          {
+            "name": "horizontal gallery wipe, rapid reversal and cancellation",
+            "pass": true
+          },
+          {
+            "name": "reduced motion during wipe",
+            "pass": true
+          },
+          {
+            "name": "residence dialog and focus",
+            "pass": true
+          },
+          {
+            "name": "desktop to mobile to desktop and motion preference recovery",
+            "pass": true
+          },
+          {
+            "name": "short landscape callout",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "pass": true,
+        "checks": [
+          {
+            "name": "normal-motion hero",
+            "pass": true
+          },
+          {
+            "name": "film loads on explicit open and pauses on close",
+            "pass": true
+          },
+          {
+            "name": "hero scroll and hotspot focus",
+            "pass": true
+          },
+          {
+            "name": "rectangle and editorial reveal",
+            "pass": true
+          },
+          {
+            "name": "horizontal gallery wipe, rapid reversal and cancellation",
+            "pass": true
+          },
+          {
+            "name": "reduced motion during wipe",
+            "pass": true
+          },
+          {
+            "name": "residence dialog and focus",
+            "pass": true
+          },
+          {
+            "name": "desktop to mobile to desktop and motion preference recovery",
+            "pass": true
+          },
+          {
+            "name": "short landscape callout",
+            "pass": true
+          }
+        ]
+      }
+    ]
+  },
+  "hotspots": {
+    "pass": true,
+    "engines": [
+      {
+        "engine": "chromium",
+        "pass": true,
+        "checks": 8
+      },
+      {
+        "engine": "webkit",
+        "pass": true,
+        "checks": 7
+      }
+    ]
+  },
+  "galleryFailure": {
+    "pass": true,
+    "engines": [
+      {
+        "engine": "chromium",
+        "states": [
+          {
+            "label": "initial",
+            "current": "1",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence living room with sculpted stone furniture and timber walls",
+              "src": "http://127.0.0.1:14324/assets/responsive/82969c36b31f8c2cda1e-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 10893
+          },
+          {
+            "label": "failed-second",
+            "current": "1",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence living room with sculpted stone furniture and timber walls",
+              "src": "http://127.0.0.1:14324/assets/responsive/82969c36b31f8c2cda1e-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 11339
+          },
+          {
+            "label": "next-reaches-third",
+            "current": "3",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence kitchen and dining island",
+              "src": "http://127.0.0.1:14324/assets/responsive/bdafcdeb59a912a4979b-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 11339
+          },
+          {
+            "label": "previous-retries-second",
+            "current": "2",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence interior with panoramic views",
+              "src": "http://127.0.0.1:14324/assets/responsive/9a94beb6b3069f1e4dff-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 11339
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "states": [
+          {
+            "label": "initial",
+            "current": "1",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence living room with sculpted stone furniture and timber walls",
+              "src": "http://127.0.0.1:14324/assets/responsive/82969c36b31f8c2cda1e-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 10893
+          },
+          {
+            "label": "failed-second",
+            "current": "1",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence living room with sculpted stone furniture and timber walls",
+              "src": "http://127.0.0.1:14324/assets/responsive/82969c36b31f8c2cda1e-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 10964
+          },
+          {
+            "label": "next-reaches-third",
+            "current": "3",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence kitchen and dining island",
+              "src": "http://127.0.0.1:14324/assets/responsive/bdafcdeb59a912a4979b-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 10964
+          },
+          {
+            "label": "previous-retries-second",
+            "current": "2",
+            "image": {
+              "loaded": true,
+              "alt": "ORLA residence interior with panoramic views",
+              "src": "http://127.0.0.1:14324/assets/responsive/9a94beb6b3069f1e4dff-w1920.webp"
+            },
+            "preview": null,
+            "scrollY": 10964
+          }
+        ]
+      }
+    ]
+  },
+  "browser": {
+    "viewports": [
+      {
+        "width": 1440,
+        "scroll": 1425,
+        "broken": []
+      },
+      {
+        "width": 1024,
+        "scroll": 1009,
+        "broken": []
+      },
+      {
+        "width": 768,
+        "scroll": 753,
+        "broken": []
+      },
+      {
+        "width": 390,
+        "scroll": 375,
+        "broken": []
+      },
+      {
+        "width": 320,
+        "scroll": 305,
+        "broken": []
+      }
+    ],
+    "interactions": [
+      "menu and focus restoration",
+      "architecture hotspot",
+      "gallery and image zoom",
+      "feature detail",
+      "residence selection, floor plan and nested Escape",
+      "validation, retained data, idempotent retry and truthful success"
+    ],
+    "errors": []
+  },
+  "executionSessions": {
+    "interactionVisualMotionHotspotBrowser": 82612,
+    "narrowVisual320Browser": 12007,
+    "galleryFailure": 34040,
+    "nativeClose": 41447
+  },
+  "limits": [
+    "Headless Linux browser evidence, not physical-device FPS or Safari browser chrome.",
+    "Original images were eagerly decoded for section visibility; no network-performance score is inferred.",
+    "All enquiry operations were blocked or mocked; no real enquiry was sent."
+  ],
+  "screenshots": {
+    "close-landscape-844.png": {
+      "sha256": "ca6ff65bdaf7e2d2fe48ed2231f1ea824f4127e05160065c7e68cf0bdf27ce3b"
+    },
+    "enquiry-mobile-390.png": {
+      "sha256": "7aa90b44c276947418a5f6e502d21fa9e389201721c27ed242786e6f14c3de03"
+    },
+    "feature-mobile-390.png": {
+      "sha256": "aeae0e1f06b9bc778cf019b1ccc1bccffcc3d38da7d39757ee6d933b342187c3"
+    },
+    "gallery-mobile-390.png": {
+      "sha256": "9cb4308fe01438c2a57d83eb0e67408e8942580889c3f1a3a14081b58838d076"
+    },
+    "hero-desktop-1440.jpg": {
+      "sha256": "ce0df69588b889a79b131077bf1182c6d6d26322dd1c5f5096f953db2deaadaf"
+    },
+    "interiors-mobile-320.png": {
+      "sha256": "bbcd7fb8abe7b4b09a10e34e069723e2ec4ebf8a132d5a5b556be674574227b6"
+    }
+  }
+}
