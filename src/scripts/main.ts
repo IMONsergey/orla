@@ -188,7 +188,7 @@ zoomStage.addEventListener('keydown', event => {
 });
 
 const form = $<HTMLFormElement>('#enquiry-form');
-let startedAt = Date.now(), submissionId = crypto.randomUUID(), enquiryContext = 'ORLA, Dorchester Collection', submitting = false;
+let startedAt = Date.now(), submissionId = crypto.randomUUID(), enquiryContext = 'ORLA, Dorchester Collection', submitting = false, lastSubmittedPayload = '';
 function clearErrors() {
   $$('[data-error]', form).forEach(node => node.textContent = '');
   $$<HTMLInputElement>('[aria-invalid]', form).forEach(node => node.removeAttribute('aria-invalid'));
@@ -202,7 +202,7 @@ function fieldError(name: string, text: string) {
 function openEnquiry(context: string) {
   if (submitting) return;
   const wasSuccessful = !$('.enquiry__success').hidden;
-  if (wasSuccessful) form.reset();
+  if (wasSuccessful) { form.reset(); submissionId = crypto.randomUUID(); lastSubmittedPayload = ''; startedAt = Date.now(); }
   enquiryContext = context;
   $<HTMLInputElement>('input[name=context]', form).value = context;
   $('[data-interest]').textContent = context;
@@ -210,7 +210,7 @@ function openEnquiry(context: string) {
   $('#enquiry-title').hidden = false; $('.enquiry__subtitle').hidden = false;
   form.hidden = false; $('.enquiry__success').hidden = true;
   clearErrors(); $('[data-submit-label]').textContent = 'Send interest';
-  startedAt = Date.now(); submissionId = crypto.randomUUID();
+  if (Date.now() - startedAt > 6 * 24 * 60 * 60 * 1000) startedAt = Date.now();
   openDialog('enquiry-dialog');
 }
 form.addEventListener('submit', async event => {
@@ -218,12 +218,15 @@ form.addEventListener('submit', async event => {
   const values = new FormData(form);
   const name = String(values.get('name') || '').trim(), email = String(values.get('email') || '').trim(), phone = String(values.get('phone') || '').trim();
   let valid = true;
-  if (name.length < 2) { fieldError('name', 'Please enter your name.'); valid = false; }
+  if (name.length < 2 || name.length > 100) { fieldError('name', 'Please enter your name (2 to 100 characters).'); valid = false; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { fieldError('email', 'Enter a valid email address.'); valid = false; }
   if (!/^[+()\d\s.\-]+$/.test(phone) || phone.replace(/\D/g,'').length < 7 || phone.replace(/\D/g,'').length > 15) { fieldError('phone', 'Enter a valid phone number, including the country code.'); valid = false; }
   if (values.get('consent') !== 'on') { fieldError('consent', 'Please agree before sending your enquiry.'); valid = false; }
   if (!valid) { $<HTMLInputElement>('[aria-invalid=true]', form)?.focus(); return; }
   const message = `Preferred contact method: ${values.get('method') || 'Email'}${values.get('message') ? '\n' + String(values.get('message')).trim() : ''}`;
+  const signature = JSON.stringify({context:enquiryContext,name,email,phone,message});
+  if (lastSubmittedPayload && signature !== lastSubmittedPayload) submissionId = crypto.randomUUID();
+  lastSubmittedPayload = signature;
   const payload = { project:'orla', context:enquiryContext, name, email, phone, consent:true, website:String(values.get('website') || ''), startedAt, submissionId, message };
   submitting = true; form.setAttribute('aria-busy','true');
   const submit = $<HTMLButtonElement>('button[type=submit]', form); submit.disabled = true;

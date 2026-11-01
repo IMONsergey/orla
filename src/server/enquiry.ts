@@ -70,7 +70,7 @@ export async function handleEnquiry(request:Request,project:Project,options:{sto
  const result=validateEnquiry(input,project,now);
  if(!result.value)return response(422,{error:result.error,fields:result.fields});
  const enquiry=result.value;
- const configured=options.configured??Boolean(process.env.BLOB_STORE_ID||process.env.BLOB_READ_WRITE_TOKEN||process.env.VERCEL_OIDC_TOKEN);
+ const configured=options.configured??Boolean(process.env.BLOB_READ_WRITE_TOKEN||(process.env.BLOB_STORE_ID&&process.env.VERCEL_OIDC_TOKEN));
  if(!configured&&!options.store)return response(503,{error:'Enquiries are temporarily unavailable. Please try again or use the contact details on this website.'},{'Retry-After':'60'});
  // This is a bounded per-instance abuse check, in addition to the hosting firewall.
  // No raw address or request body is written to logs.
